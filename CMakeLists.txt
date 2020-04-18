@@ -10,21 +10,31 @@ if(CCACHE)
     set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
 endif()
 
-#set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
-#set(COMMON_COMPILE_OPTIONS -Wall -Wextra -pedantic -Wnon-virtual-dtor)
-#add_compile_options(${COMMON_COMPILE_OPTIONS})
-
-add_executable(dreams src/main.cpp)
-target_compile_options(dreams PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+set(SOURCES_DREAMS )
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
-#set (SOURCE_TESTS  ${SOURCE_TESTS} ${SOURCE})
+set (SOURCES_DREAMS_TESTS  ${SOURCES_DREAMS} tests/tests_main.cpp)
+
+add_executable(dreams src/main.cpp ${SOURCES_DREAMS})
+add_executable(dreams_tests ${SOURCES_DREAMS_TESTS})
 
 target_include_directories(dreams PUBLIC inc)
-#add_executable(testbuild ${SOURCE_TESTS})
+target_include_directories(dreams_tests PUBLIC inc)
+
+
+target_compile_options(dreams PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+target_compile_features(dreams PRIVATE cxx_std_17)
+
+target_compile_options(dreams_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+target_compile_features(dreams_tests PRIVATE cxx_std_17)
+
+find_program(CONAN conan)
+if (NOT CONAN)
+    message(FATAL_ERROR "This project needs conan for dependency management: see https://conan.io")
+endif()
 
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
   message(
@@ -37,7 +47,7 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_check(REQUIRED)
+
 conan_cmake_run(CONANFILE
                 conanfile.txt
                 BASIC_SETUP
@@ -48,17 +58,25 @@ conan_cmake_run(CONANFILE
                 missing)
 
 
-set(CMAKE_MODULE_PATH /usr/share/SFML/cmake/Modules ${CMAKE_BINARY_DIR})
+
 find_package(sfml REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
+find_package(Catch2 REQUIRED)
 
 add_subdirectory(external)
 
+# TODO verify whether imgui requires these
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 
-target_link_libraries(dreams PRIVATE
-                                        spdlog::spdlog
-                                        fmt::fmt
-                                        sfml::sfml)
+set(DREAMS_DEPENDENCIES imgui
+                        Threads::Threads
+                        spdlog::spdlog
+                        fmt::fmt
+                        sfml::sfml)
+
+target_link_libraries(dreams PRIVATE ${DREAMS_DEPENDENCIES})
+target_link_libraries(dreams_tests PRIVATE ${DREAMS_DEPENDENCIES} Catch2::Catch2)
