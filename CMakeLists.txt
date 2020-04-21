@@ -12,13 +12,13 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
-set(SOURCES_DREAMS )
+set(SOURCES_DREAMS src/core.cpp src/asset_manager.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
 set (SOURCES_DREAMS_TESTS  ${SOURCES_DREAMS} tests/tests_main.cpp)
 
-add_executable(dreams src/main.cpp ${SOURCES_DREAMS})
+add_executable(dreams src/main.cpp ${SOURCES_DREAMS} src/menu.cpp)
 add_executable(dreams_tests ${SOURCES_DREAMS_TESTS})
 
 target_include_directories(dreams PUBLIC inc)
@@ -74,6 +74,7 @@ find_package(Threads REQUIRED)
 
 set(DREAMS_DEPENDENCIES imgui
                         Threads::Threads
+                        sfml::sfml
                         spdlog::spdlog
                         fmt::fmt
                         sfml::sfml)

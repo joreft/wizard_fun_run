@@ -1,3 +1,5 @@
+#pragma once
+
 #include "spdlog/spdlog.h"
 
 #define LOG_DEBUG(...) spdlog::debug(__VA_ARGS__)

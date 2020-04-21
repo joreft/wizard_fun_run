@@ -1,5 +1,7 @@
+#include "core.h"
 #include "log.h"
 
+#include <SFML/Window.hpp>
 #include <spdlog/spdlog.h>
 
 int main()
@@ -10,6 +12,15 @@ int main()
 #endif
 
     LOG_INFO("Starting up codename dreams_are_real");
+
+    //sf::VideoMode mode {500, 400, 32};
+    auto const settings  = jeagle::WindowSettings{sf::VideoMode::getDesktopMode(),
+                                                  std::string("Dreams are real"),
+                                                  sf::Style::Fullscreen
+                                                 };
+
+    jeagle::start_menu();
+    jeagle::core::run(settings);
 
     LOG_INFO("Exiting dreams_are_real");
     return 0;
