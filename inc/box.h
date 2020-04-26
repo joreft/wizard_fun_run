@@ -8,10 +8,6 @@ namespace jeagle
 template<typename T>
 struct Box
 {
-    constexpr Box(Vector2 <T> const &upper_left, Vector2 <T> const &size)
-        : upper_left(upper_left), size(size)
-    {}
-
     Vector2 <T> upper_left;
     Vector2 <T> size;
 

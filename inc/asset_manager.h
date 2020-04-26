@@ -25,6 +25,8 @@ struct AssetManager
     bool ensure_loaded(std::string const& texture_path);
     sf::Texture& get(std::string const& path);
 
+    sf::Font const& getDefaultFont();
+
     static AssetManager& instance();
 private:
     AssetManager();

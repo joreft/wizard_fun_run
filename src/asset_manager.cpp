@@ -47,4 +47,23 @@ sf::Texture& AssetManager::get(std::string const& path)
     return it->second;
 }
 
+static constexpr char default_font_path[] = "assets/Inconsolata-Bold.ttf";
+
+sf::Font const& AssetManager::getDefaultFont()
+{
+    static auto const font = []()
+    {
+        sf::Font font;
+        if (!font.loadFromFile(default_font_path))
+        {
+            LOG_ERROR("Failed to load default font from path {}", default_font_path);
+            throw AssetNotFound("Critical error, didn't find default font");
+        }
+
+        return font;
+    }();
+
+    return font;
+}
+
 } // namespace jeagle

@@ -27,6 +27,7 @@ static void add_state(StatePtr new_state)
 
 void set_should_pop_state()
 {
+    LOG_DEBUG("Popping off current state");
     should_pop_state = true;
 }
 
