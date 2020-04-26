@@ -3,6 +3,10 @@
 #include "core.h"
 #include "log.h"
 
+#include <algorithm>
+#include <functional>
+#include <vector>
+
 namespace jeagle
 {
 
@@ -21,14 +25,7 @@ struct MenuEntry
 
 struct MenuContextData
 {
-    std::optional<int> selected_menu_index;
-
-    std::array<MenuEntry, 3> menu_entries
-    {
-          MenuEntry {"Play [p]", sf::Keyboard::Key::P, core::set_should_pop_state}
-        , MenuEntry {"Create [c]", sf::Keyboard::Key::C, core::set_should_pop_state}
-        , MenuEntry {"Exit [Esc]", sf::Keyboard::Key::Escape, core::set_should_pop_state}
-    };
+    std::vector<MenuEntry> menu_entries;
 };
 
 namespace
@@ -100,13 +97,11 @@ void handle_menu_input_impl(sf::Event const& event, MenuContextData& menu_contex
         {
             entry.runtime_state.is_hovered = false;
         }
-
     }
-
 }
 
-std::string const background =   "assets/menu_background.png";
-std::string const menu_texture = "assets/menu_entry.png";
+constexpr char const background[] =   "assets/menu_background.png";
+constexpr char const menu_texture[] = "assets/menu_entry.png";
 
 void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_context)
 {
@@ -131,7 +126,7 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
         text.setString(entry.text);
 
         auto const text_pos_x = (entry.runtime_state.box.size.x - text.getLocalBounds().width) / 2 + entry.runtime_state.box.upper_left.x;
-        text.setPosition(text_pos_x, entry.runtime_state.box.upper_left.y + 2);
+        text.setPosition(text_pos_x, static_cast<float>(entry.runtime_state.box.upper_left.y) + 2.f);
 
         if (entry.runtime_state.is_hovered)
         {
@@ -154,7 +149,9 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
 
 struct Menu : public State
 {
-    MenuContextData context;
+    explicit Menu(MenuContextData context)
+     : context(std::move(context))
+    {}
 
     void init() override
     {
@@ -173,11 +170,21 @@ struct Menu : public State
     {
         draw_menu_impl(*m_window, context);
     }
+
+private:
+    MenuContextData context {};
 };
 
-void start_menu()
+void start_main_menu()
 {
-    std::unique_ptr<State> menu = std::make_unique<Menu>();
+    std::vector<MenuEntry> main_menu_entries
+    {
+          MenuEntry {"Play [p]", sf::Keyboard::Key::P, core::set_should_pop_state}
+        , MenuEntry {"Create [c]", sf::Keyboard::Key::C, core::set_should_pop_state}
+        , MenuEntry {"Exit [Esc]", sf::Keyboard::Key::Escape, core::set_should_pop_state}
+    };
+
+    std::unique_ptr<State> menu = std::make_unique<Menu>(MenuContextData{std::move(main_menu_entries)});
     core::push_state(std::move(menu));
 }
 

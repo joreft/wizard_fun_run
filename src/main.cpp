@@ -19,7 +19,7 @@ int main()
                                                   sf::Style::Fullscreen
                                                  };
 
-    jeagle::start_menu();
+    jeagle::start_main_menu();
     jeagle::core::run(settings);
 
     LOG_INFO("Exiting dreams_are_real");

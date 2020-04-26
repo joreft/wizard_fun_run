@@ -60,6 +60,6 @@ int run(WindowSettings const &settings);
 } // namespace core
 
 // states
-void start_menu();
+void start_main_menu();
 
 } // namespace jeagle
