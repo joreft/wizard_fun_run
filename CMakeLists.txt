@@ -54,6 +54,8 @@ endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
+conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+
 conan_cmake_run(CONANFILE
                 conanfile.txt
                 BASIC_SETUP
@@ -62,8 +64,6 @@ conan_cmake_run(CONANFILE
                 CMAKE_TARGETS
                 BUILD
                 missing)
-
-
 
 find_package(sfml REQUIRED)
 find_package(spdlog REQUIRED)
