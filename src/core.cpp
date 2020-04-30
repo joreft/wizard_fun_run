@@ -76,7 +76,7 @@ int run(WindowSettings const &settings)
     }
 
     auto window = sf::RenderWindow(settings.mode, settings.title, settings.style);
-    //window.setVerticalSyncEnabled(true);
+    window.setVerticalSyncEnabled(true);
 
     // Make sure repeated key events never happen
     // e.g. double escapes in a row...

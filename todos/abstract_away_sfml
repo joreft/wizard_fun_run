@@ -1,0 +1,5 @@
+It should be much easier to switch SFML with another backend for graphics and input handling
+
+The gameplay code shouldn't be as tightly coupled to sfml code
+
+Enforcement: No SFML includes outside a specific set of files

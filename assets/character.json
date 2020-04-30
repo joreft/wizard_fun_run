@@ -1,0 +1,91 @@
+{ "frames": [
+   {
+    "filename": "casting_0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "casting_1.aseprite",
+    "frame": { "x": 66, "y": 0, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "casting_2.aseprite",
+    "frame": { "x": 132, "y": 0, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "casting_3.aseprite",
+    "frame": { "x": 198, "y": 0, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "walking_0.aseprite",
+    "frame": { "x": 0, "y": 108, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "walking_1.aseprite",
+    "frame": { "x": 66, "y": 108, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "walking_2.aseprite",
+    "frame": { "x": 132, "y": 108, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   },
+   {
+    "filename": "walking_3.aseprite",
+    "frame": { "x": 198, "y": 108, "w": 66, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 66, "h": 108 },
+    "sourceSize": { "w": 66, "h": 108 },
+    "duration": 200
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.18-x64",
+  "image": "character.png",
+  "format": "RGBA8888",
+  "size": { "w": 264, "h": 216 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "casting", "opacity": 255, "blendMode": "normal", "data": "stuff" },
+   { "name": "walking", "opacity": 255, "blendMode": "normal", "data": "stuff" }
+  ],
+  "slices": [
+  ]
+ }
+}

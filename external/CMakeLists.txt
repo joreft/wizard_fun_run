@@ -6,3 +6,6 @@ target_link_libraries(imgui PUBLIC
 #                                        CONAN_PKG::sfml
                                         )
 
+add_library(json11 json11/src/json11.cpp)
+target_include_directories(json11 PUBLIC json11/inc)
+

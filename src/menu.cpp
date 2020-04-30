@@ -2,6 +2,7 @@
 #include "box.h"
 #include "core.h"
 #include "log.h"
+#include "play_level_core.h"
 
 #include <algorithm>
 #include <functional>
@@ -16,7 +17,7 @@ struct MenuEntry
     sf::Keyboard::Key const hotkey;
     std::function<void(void)> const on_click;
 
-    struct State
+    struct RuntimeState
     {
         bool is_hovered = false;
         Box<int> box {};
@@ -179,7 +180,7 @@ void start_main_menu()
 {
     std::vector<MenuEntry> main_menu_entries
     {
-          MenuEntry {"Play [p]", sf::Keyboard::Key::P, core::set_should_pop_state}
+          MenuEntry {"Play [p]", sf::Keyboard::Key::P, start_play_level_core}
         , MenuEntry {"Create [c]", sf::Keyboard::Key::C, core::set_should_pop_state}
         , MenuEntry {"Exit [Esc]", sf::Keyboard::Key::Escape, core::set_should_pop_state}
     };

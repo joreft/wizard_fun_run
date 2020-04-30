@@ -12,7 +12,13 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
-set(SOURCES_DREAMS src/core.cpp src/asset_manager.cpp)
+set(SOURCES_DREAMS src/asset_manager.cpp
+                   src/core.cpp
+                   src/json11_from_file.cpp
+                   src/play_level_core.cpp
+                   src/play_level_draw.cpp
+                   src/play_level_handle_input.cpp
+                   src/play_level_update.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
@@ -63,6 +69,7 @@ find_package(sfml REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(Catch2 REQUIRED)
+find_package(Boost REQUIRED)
 
 add_subdirectory(external)
 
@@ -73,8 +80,9 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 set(DREAMS_DEPENDENCIES imgui
+                        json11
                         Threads::Threads
-                        sfml::sfml
+                        Boost::Boost
                         spdlog::spdlog
                         fmt::fmt
                         sfml::sfml)
