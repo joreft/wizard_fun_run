@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 #include <string>
-#include <map>
+#include <unordered_map>
 
 namespace jeagle
 {
@@ -22,8 +22,8 @@ struct AssetManager
     AssetManager operator=(AssetManager const&) = delete;
     AssetManager& operator=(AssetManager &&) = delete;
 
-    bool ensure_loaded(std::string const& texture_path);
-    sf::Texture& get(std::string const& path);
+    bool ensure_texture_loaded(std::string const& texture_path);
+    sf::Texture& get_texture(std::string const& path);
 
     sf::Font const& getDefaultFont();
 
@@ -31,7 +31,7 @@ struct AssetManager
 private:
     AssetManager();
     using Filename = std::string;
-    std::map<Filename, sf::Texture> textures;
+    std::unordered_map<Filename, sf::Texture> textures;
 };
 
 } // namespace jeagle

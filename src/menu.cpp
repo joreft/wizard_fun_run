@@ -106,28 +106,28 @@ constexpr char const menu_texture[] = "assets/menu_entry.png";
 
 void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_context)
 {
-    AssetManager::instance().ensure_loaded(background);
-    AssetManager::instance().ensure_loaded(menu_texture);
+    AssetManager::instance().ensure_texture_loaded(background);
+    AssetManager::instance().ensure_texture_loaded(menu_texture);
 
-    sf::Sprite background_sprite(AssetManager::instance().get(background));
+    sf::Sprite background_sprite(AssetManager::instance().get_texture(background));
 
     window.clear();
     window.draw(background_sprite);
 
     for (auto const& entry : menu_context.menu_entries)
     {
-        sf::Sprite menu_sprite(AssetManager::instance().get(menu_texture));
+        sf::Sprite menu_sprite(AssetManager::instance().get_texture(menu_texture));
         auto const x = entry.runtime_state.box.upper_left.x;
         auto const y = entry.runtime_state.box.upper_left.y;
 
         sf::Text text;
         text.setFont(AssetManager::instance().getDefaultFont());
-        text.setCharacterSize(50);
+        text.setCharacterSize(42);
         text.setFillColor(sf::Color::Black); text.setOutlineColor(sf::Color::Black);
         text.setString(entry.text);
 
         auto const text_pos_x = (entry.runtime_state.box.size.x - text.getLocalBounds().width) / 2 + entry.runtime_state.box.upper_left.x;
-        text.setPosition(text_pos_x, static_cast<float>(entry.runtime_state.box.upper_left.y) + 2.f);
+        text.setPosition(text_pos_x, static_cast<float>(entry.runtime_state.box.upper_left.y) + 7.f);
 
         if (entry.runtime_state.is_hovered)
         {

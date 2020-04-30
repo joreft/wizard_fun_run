@@ -18,8 +18,8 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
 
     auto const player_path = context.player.animation_controller.texture_key;
 
-    AssetManager::instance().ensure_loaded(player_path);
-    sf::Sprite player_sprite(AssetManager::instance().get(player_path));
+    AssetManager::instance().ensure_texture_loaded(player_path);
+    sf::Sprite player_sprite(AssetManager::instance().get_texture(player_path));
 
     player_sprite.setTextureRect(int_rect_from_box(spritesheet_pos));
     player_sprite.setPosition(context.player.position.x, context.player.position.y);

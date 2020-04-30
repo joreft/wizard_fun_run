@@ -16,7 +16,7 @@ AssetManager& AssetManager::instance()
     return asset_manager;
 }
 
-bool AssetManager::ensure_loaded(std::string const& texture_path)
+bool AssetManager::ensure_texture_loaded(std::string const& texture_path)
 {
     if (textures.find(texture_path) != textures.end())
     {
@@ -37,7 +37,7 @@ bool AssetManager::ensure_loaded(std::string const& texture_path)
 
 }
 
-sf::Texture& AssetManager::get(std::string const& path)
+sf::Texture& AssetManager::get_texture(std::string const& path)
 {
     auto const it = textures.find(path);
     if (it == textures.end())
@@ -47,7 +47,7 @@ sf::Texture& AssetManager::get(std::string const& path)
     return it->second;
 }
 
-static constexpr char default_font_path[] = "assets/Inconsolata-Bold.ttf";
+static constexpr char default_font_path[] = "assets/SedgwickAve-Regular.ttf"; //"assets/Inconsolata-Bold.ttf";
 
 sf::Font const& AssetManager::getDefaultFont()
 {
