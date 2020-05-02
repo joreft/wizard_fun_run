@@ -1,4 +1,5 @@
 #include "core.h"
+#include "fonts.h"
 #include "log.h"
 
 #include <SFML/Window.hpp>
@@ -10,6 +11,8 @@ int main()
     // Global level for debug builds
     spdlog::set_level(spdlog::level::debug);
 #endif
+
+    jeagle::fonts::global_preload_all_fonts();
 
     LOG_INFO("Starting up codename dreams_are_real");
 

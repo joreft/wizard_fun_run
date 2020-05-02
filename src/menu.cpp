@@ -121,7 +121,7 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
         auto const y = entry.runtime_state.box.upper_left.y;
 
         sf::Text text;
-        text.setFont(AssetManager::instance().getDefaultFont());
+        text.setFont(AssetManager::instance().get_default_font());
         text.setCharacterSize(42);
         text.setFillColor(sf::Color::Black); text.setOutlineColor(sf::Color::Black);
         text.setString(entry.text);

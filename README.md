@@ -6,9 +6,14 @@ of a playable 2D-platformer one day. (hopes and dreams) I'm using SFML for I/O, 
 But the core game engine (physics, animations, state transitions etc.) is written by myself.
 
 Also note that this is an eclectic mix of best practices in C++ and some wild experiments
-that I do to satisfy my curiosity. This is not written by a game programmer! Any sane person
+that I do to satisfy my curiosity. This is not written by a game programmer, and is not supposed
+ to be instructional. Any sane person
 who wants to make actual games as a hobby (rather than for learning purposes) should probably
 use a proper game engine. (I suggest Godot: https://godotengine.org/ because it's free and open-source)
+
+# Tooling
+Using aseprite (https://www.aseprite.org/) for creating sprites and exporting sprite metadata
+in json format, which in turn the game engine uses for importing sprite sheets.
 
 # Build dependencies
 CMake (version >= 3.12) is used for building.

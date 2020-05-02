@@ -3,6 +3,7 @@
 #include "log.h"
 
 #include <string>
+#include <utility>
 
 namespace jeagle
 {
@@ -37,10 +38,10 @@ bool AssetManager::ensure_texture_loaded(std::string const& texture_path)
 
 }
 
-sf::Texture& AssetManager::get_texture(std::string const& path)
+sf::Texture const& AssetManager::get_texture(std::string const& path) const
 {
     auto const it = textures.find(path);
-    if (it == textures.end())
+    if (it == textures.cend())
     {
         throw AssetNotFound(fmt::format("Did not find texture '{}'", path));
     }
@@ -49,21 +50,39 @@ sf::Texture& AssetManager::get_texture(std::string const& path)
 
 static constexpr char default_font_path[] = "assets/SedgwickAve-Regular.ttf"; //"assets/Inconsolata-Bold.ttf";
 
-sf::Font const& AssetManager::getDefaultFont()
+bool AssetManager::ensure_font_loaded(std::string const& font_path)
 {
-    static auto const font = []()
+    if (fonts.find(font_path) != fonts.cend())
     {
-        sf::Font font;
-        if (!font.loadFromFile(default_font_path))
-        {
-            LOG_ERROR("Failed to load default font from path {}", default_font_path);
-            throw AssetNotFound("Critical error, didn't find default font");
-        }
+        return true;
+    }
 
-        return font;
-    }();
+    sf::Font font;
 
-    return font;
+    if (!font.loadFromFile(font_path))
+    {
+        LOG_ERROR("Failed to load font from path {}", font_path);
+        return false;
+    }
+
+    fonts[font_path] = std::move(font);
+    return true;
+}
+
+sf::Font const& AssetManager::get_default_font() const
+{
+    return get_font(default_font_path);
+}
+
+sf::Font const& AssetManager::get_font(std::string const& path) const
+{
+    auto const font_at = fonts.find(path);
+    if (font_at == fonts.cend())
+    {
+        throw AssetNotFound(fmt::format("Did not find font at '{}'", path));
+    }
+
+    return font_at->second;
 }
 
 } // namespace jeagle
