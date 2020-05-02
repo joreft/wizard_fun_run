@@ -2,23 +2,19 @@
 
 #include "asset_manager.h"
 #include "fonts.h"
+#include "conversion.h"
 
 #include <fmt/format.h>
 
 namespace jeagle
 {
 
-static sf::IntRect int_rect_from_box(Box<int> const& box)
-{
-    return {box.upper_left.x, box.upper_left.y, box.size.x, box.size.y};
-}
-
 std::string stringify_state(Player::State state)
 {
     switch (state)
     {
         case Player::State::casting_swing:
-            return "casting";
+            return "casting_swing";
         case Player::State::idle:
             return "idle";
     }
