@@ -1,4 +1,4 @@
-# Dreams are real
+# Wizard Fun Run
 This is my (Jørns) sandbox for experimenting with C++.
 
 More specifically game programming in C++. This is supposed to become some sort

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(dreams_are_real)
+project(wizard_fun_run)
 
 # Exporting the assets
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -12,7 +12,7 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
-set(SOURCES_DREAMS src/asset_manager.cpp
+set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
                    src/core.cpp
                    src/fonts.cpp
                    src/json11_from_file.cpp
@@ -23,20 +23,20 @@ set(SOURCES_DREAMS src/asset_manager.cpp
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
-set (SOURCES_DREAMS_TESTS  ${SOURCES_DREAMS} tests/tests_main.cpp)
+set (SOURCES_WIZARD_FUN_RUN_TESTS  ${SOURCES_WIZARD_FUN_RUN} tests/tests_main.cpp)
 
-add_executable(dreams src/main.cpp ${SOURCES_DREAMS} src/menu.cpp)
-add_executable(dreams_tests ${SOURCES_DREAMS_TESTS})
+add_executable(wizard_fun_run src/main.cpp ${SOURCES_WIZARD_FUN_RUN} src/menu.cpp)
+add_executable(wizard_fun_run_tests ${SOURCES_WIZARD_FUN_RUN_TESTS})
 
-target_include_directories(dreams PUBLIC inc)
-target_include_directories(dreams_tests PUBLIC inc)
+target_include_directories(wizard_fun_run PUBLIC inc)
+target_include_directories(wizard_fun_run_tests PUBLIC inc)
 
 
-target_compile_options(dreams PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
-target_compile_features(dreams PRIVATE cxx_std_17)
+target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+target_compile_features(wizard_fun_run PRIVATE cxx_std_17)
 
-target_compile_options(dreams_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
-target_compile_features(dreams_tests PRIVATE cxx_std_17)
+target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+target_compile_features(wizard_fun_run_tests PRIVATE cxx_std_17)
 
 find_program(CONAN conan)
 if (NOT CONAN)
@@ -80,13 +80,13 @@ find_package(OpenGL)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-set(DREAMS_DEPENDENCIES imgui
-                        json11
-                        Threads::Threads
-                        Boost::Boost
-                        spdlog::spdlog
-                        fmt::fmt
-                        sfml::sfml)
+set(WIZARD_FUN_RUN_DEPENDENCIES imgui
+                                json11
+                                Threads::Threads
+                                Boost::Boost
+                                spdlog::spdlog
+                                fmt::fmt
+                                sfml::sfml)
 
-target_link_libraries(dreams PRIVATE ${DREAMS_DEPENDENCIES})
-target_link_libraries(dreams_tests PRIVATE ${DREAMS_DEPENDENCIES} Catch2::Catch2)
+target_link_libraries(wizard_fun_run PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES})
+target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} Catch2::Catch2)
