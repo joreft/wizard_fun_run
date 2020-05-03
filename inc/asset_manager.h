@@ -11,12 +11,6 @@
 namespace jeagle
 {
 
-struct AssetNotFound : public std::runtime_error
-{
-    AssetNotFound(std::string const& s) : std::runtime_error(s)
-    {}
-};
-
 struct AssetManager
 {
     AssetManager(AssetManager const&) = delete;
@@ -26,6 +20,9 @@ struct AssetManager
 
     bool ensure_texture_loaded(std::string const& texture_path);
     sf::Texture const& get_texture(std::string const& path) const;
+
+    void ensure_animated_texture_loaded(std::string const& path);
+    CreatureTextureContainer const& get_animated_texture_container(std::string const& path);
 
     bool ensure_font_loaded(std::string const& font_path);
     sf::Font const& get_font(std::string const& path) const;
@@ -39,6 +36,7 @@ private:
 
     std::unordered_map<Filename, sf::Texture> textures;
     std::unordered_map<Filename, sf::Font> fonts;
+    std::unordered_map<Filename, CreatureTextureContainer> creature_textures;
 };
 
 } // namespace jeagle

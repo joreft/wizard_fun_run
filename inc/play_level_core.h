@@ -3,13 +3,14 @@
 #include "box.h"
 #include "json11_from_file.h"
 #include "player.h"
+#include "texture_paths.h"
+#include "log.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window.hpp>
 #include <json11/json11.hpp>
 
-#include "boost/algorithm/string.hpp"
-#include "log.h"
+#include <boost/algorithm/string.hpp>
 
 namespace jeagle
 {

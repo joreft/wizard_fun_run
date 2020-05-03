@@ -1,4 +1,5 @@
 #include "asset_manager.h"
+#include "fonts.h"
 
 #include "log.h"
 
@@ -48,7 +49,20 @@ sf::Texture const& AssetManager::get_texture(std::string const& path) const
     return it->second;
 }
 
-static constexpr char default_font_path[] = "assets/SedgwickAve-Regular.ttf"; //"assets/Inconsolata-Bold.ttf";
+void AssetManager::ensure_animated_texture_loaded(std::string const& path)
+{
+    creature_textures[path] = parse_creature_texture_and_metadata(path);
+}
+
+CreatureTextureContainer const& AssetManager::get_animated_texture_container(std::string const& path)
+{
+    auto const it = creature_textures.find(path);
+    if (it == creature_textures.cend())
+    {
+        throw AssetNotFound(fmt::format("Did not find texture '{}'", path));
+    }
+    return it->second;
+}
 
 bool AssetManager::ensure_font_loaded(std::string const& font_path)
 {
@@ -71,7 +85,7 @@ bool AssetManager::ensure_font_loaded(std::string const& font_path)
 
 sf::Font const& AssetManager::get_default_font() const
 {
-    return get_font(default_font_path);
+    return get_font(fonts::sedgwick);
 }
 
 sf::Font const& AssetManager::get_font(std::string const& path) const

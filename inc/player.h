@@ -61,15 +61,23 @@ inline PlayerAsset load_player_asset_data()
     return {};
 }
 
+struct PlayerAbilities
+{
+    int castpoint_ms = 800;
+    int max_walking_speed = 700; // 700 units per second
+};
+
 struct Player
 {
     PlayerAsset asset_data {};
+
+    PlayerAbilities player_abilities;
 
     enum class State
     {
           idle
         , casting_swing
-        //, CASTING_BACKSWING
+        //, casting_backswing
     };
 
     struct InputState
