@@ -37,13 +37,12 @@ struct CreatureTextureContainer
     std::unordered_map<CreatureSequence, std::vector<Box<int>>> frame_sequences {};
 
     template <typename SequenceKey>
-    sf::Sprite get_as_sprite(SequenceKey key, int number_in_frame, Vector2i const& in_position)
+    sf::Sprite get_as_sprite(SequenceKey key, int number_in_frame, Vector2f const& in_position) const
     {
-        static_assert(std::is_same<std::underlying_type<SequenceKey>, CreatureSequence>::value);
         sf::Sprite sprite;
         sprite.setTexture(texture);
 
-        sprite.setTextureRect(int_rect_from_box(frame_sequences.at(to_integral(key)).at(number_in_frame)));
+        sprite.setTextureRect(int_rect_from_box(frame_sequences.at(key).at(number_in_frame)));
         sprite.setPosition(in_position.x, in_position.y);
         return sprite;
     }
@@ -52,7 +51,7 @@ struct CreatureTextureContainer
 inline std::unordered_map<std::string, CreatureSequence> tag_to_sequence_type_creature
 {
       {"idle",               CreatureSequence::idle}
-    , {"casting_swing",      CreatureSequence::casting_swing}
+    , {"casting",            CreatureSequence::casting_swing}
     , {"casting_backswing",  CreatureSequence::casting_backswing}
     , {"walking",            CreatureSequence::walking}
     , {"jumping",            CreatureSequence::jumping}

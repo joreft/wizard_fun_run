@@ -23,9 +23,16 @@ struct PlayLevelCoreContextData
     int fps {};
 };
 
+struct KeyInputState
+{
+    bool left_pressed {};
+    bool right_pressed {};
+    bool jump_pressed {};
+};
+
 void start_play_level_core();
 
-void play_level_core_handle_input_impl(sf::Event const& event, PlayLevelCoreContextData& context);
+void play_level_core_handle_input_impl(sf::Event const& event, PlayLevelCoreContextData& context, KeyInputState& key_input_state);
 void play_level_core_update_impl(PlayLevelCoreContextData& context, float s_elapsed);
 void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextData& context);
 

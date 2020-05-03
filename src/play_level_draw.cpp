@@ -57,22 +57,20 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
 {
     window.clear();
 
-    auto const spritesheet_pos = context.player.animation_controller.frames_in_state.at(context.player.animation_controller.current_frame);
-
     auto const player_path = context.player.animation_controller.texture_key;
 
     sf::View view{};
-    AssetManager::instance().ensure_texture_loaded(player_path);
-    sf::Sprite player_sprite(AssetManager::instance().get_texture(player_path));
 
-    player_sprite.setTextureRect(int_rect_from_box(spritesheet_pos));
-    player_sprite.setPosition(context.player.position.x, context.player.position.y);
+    auto const& texture_container_player = AssetManager::instance().get_animated_texture_container(player_texture_path);
+
+    auto sprite = texture_container_player.get_as_sprite(CreatureSequence::casting_swing, context.player.animation_controller.current_frame,
+        {context.player.position.x, context.player.position.y});
+
+    window.draw(sprite);
 
 #ifndef NDEBUG
     draw_debug_info(window, view, context.player, context.fps);
 #endif
-
-    window.draw(player_sprite);
 
     window.display();
 }

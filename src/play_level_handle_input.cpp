@@ -5,7 +5,7 @@
 namespace jeagle
 {
 
-void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreContextData &context)
+void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreContextData &context, KeyInputState& key_input_state)
 {
     if (event.type == sf::Event::KeyPressed)
     {
@@ -71,6 +71,24 @@ void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreCont
         {
             // context.player.state = Player::State::;
         }
+    }
+
+    if (key_input_state.left_pressed)
+    {
+        context.player.input_state.direction = Player::InputState::MoveDirection::left;
+    }
+    else if (key_input_state.right_pressed)
+    {
+        context.player.input_state.direction = Player::InputState::MoveDirection::right;
+    }
+    else
+    {
+        context.player.input_state.direction = Player::InputState::MoveDirection::none;
+    }
+
+    if (key_input_state.jump_pressed)
+    {
+
     }
 
     }
