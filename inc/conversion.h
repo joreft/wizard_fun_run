@@ -8,7 +8,7 @@ namespace jeagle
 {
 
 template <typename Enum>
-std::underlying_type<Enum> to_integral(Enum const val)
+auto to_integral(Enum const val)
 {
     return static_cast<std::underlying_type<Enum>>(val);
 }

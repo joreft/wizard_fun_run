@@ -23,7 +23,7 @@ struct AssetNotFound : public std::runtime_error
 
 enum class CreatureSequence
 {
-    idle
+      idle
     , casting_swing
     , casting_backswing
     , walking

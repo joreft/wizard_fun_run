@@ -36,7 +36,6 @@ bool AssetManager::ensure_texture_loaded(std::string const& texture_path)
         LOG_DEBUG("Loaded texture '{}'", texture_path);
         return true;
     }
-
 }
 
 sf::Texture const& AssetManager::get_texture(std::string const& path) const
