@@ -149,6 +149,7 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
         window.draw(menu_sprite);
         window.draw(text);
     }
+    window.setView(window.getDefaultView());
 
     window.display();
 }

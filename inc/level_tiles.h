@@ -173,7 +173,7 @@ public:
     void add_tile(Box<int> const& sprite_box, std::optional<Box<int>> const& collision_box, std::string const& tileset_path, Box<int> const& position_in_texture)
     {
         Tile tile{tileset_path, position_in_texture, sprite_box, collision_box};
-        //add_to_drawables(tile, AssetManager::instance().get(tile.tileset_path)); TODO
+        add_to_drawables(tile, AssetManager::instance().get_texture(tile.tileset_path));// TODO
         tiles.emplace_back(std::move(tile));
     }
 

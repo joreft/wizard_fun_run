@@ -21,9 +21,9 @@
 namespace jeagle
 {
 
-static constexpr std::string_view spritesheet_config("../assets/spritesheet_config.json");
+static constexpr std::string_view spritesheet_config("assets/spritesheet_config.json");
 
-static constexpr const int grid_size_pixels = 100;
+static constexpr const int grid_size_pixels = 16;
 
 struct Spritesheet
 {
@@ -194,7 +194,7 @@ public:
 
         static constexpr int default_width {grid_size_pixels};
         auto const mouse_pos =
-            m_window->mapPixelToCoords(sf::Mouse::getPosition());
+            m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_window));
 
         if (selected)
         {
@@ -254,7 +254,7 @@ public:
             m_window->draw(*selected);
         }
 
-        //m_window->setView(scene_view);
+        m_window->setView(scene_view);
 
         ImGui::SFML::Render(*m_window);
         m_window->display();

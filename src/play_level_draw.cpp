@@ -74,8 +74,6 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
 
     context.scene.draw(window);
 
-    //sprite.setScale(3, 3);
-
     window.setView(view);
 
     window.draw(sprite);
