@@ -188,7 +188,7 @@ void start_main_menu()
     std::vector<MenuEntry> main_menu_entries
     {
           MenuEntry {"Play [p]", sf::Keyboard::Key::P, start_play_level_core}
-        , MenuEntry {"Create [c]", sf::Keyboard::Key::C, core::set_should_pop_state}
+        , MenuEntry {"Create [c]", sf::Keyboard::Key::C, start_level_editor}
         , MenuEntry {"Exit [Esc]", sf::Keyboard::Key::Escape, core::set_should_pop_state}
     };
 

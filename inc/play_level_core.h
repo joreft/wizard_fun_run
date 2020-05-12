@@ -4,6 +4,7 @@
 #include "json11_from_file.h"
 #include "player.h"
 #include "texture_paths.h"
+#include "level_tiles.h"
 #include "log.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -18,6 +19,8 @@ namespace jeagle
 struct PlayLevelCoreContextData
 {
     Player player;
+    Scene scene = Scene(std::string("assets/levels/level1.json"));
+
 
     // Debug info
     int fps {};

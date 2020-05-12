@@ -61,5 +61,6 @@ int run(WindowSettings const &settings);
 
 // states
 void start_main_menu();
+void start_level_editor();
 
 } // namespace jeagle

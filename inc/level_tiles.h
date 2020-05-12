@@ -32,25 +32,25 @@ struct Tile
     static Tile from(json11::Json const& json)
     {
         Tile tile {};
-//        if (json["tileset_path"].is_string())
-//        {
-//            tile.tileset_path = json["tileset_path"].string_value();
-//        }
-//
-//        if (json["tileset_box"].is_object())
-//        {
-//            tile.tileset_position = Box::from(json["tileset_box"]);
-//        }
-//
-//        if (json["collision_box"].is_object())
-//        {
-//            tile.collision_box = Box::from(json["collision_box"]);
-//        }
-//
-//        if (json["sprite_box"].is_object())
-//        {
-//            tile.sprite_box = Box::from(json["sprite_box"]);
-//        }
+        if (json["tileset_path"].is_string())
+        {
+            tile.tileset_path = json["tileset_path"].string_value();
+        }
+
+        if (json["tileset_box"].is_object())
+        {
+            tile.tileset_position = Box<int>::from(json["tileset_box"]);
+        }
+
+        if (json["collision_box"].is_object())
+        {
+            tile.collision_box = Box<int>::from(json["collision_box"]);
+        }
+
+        if (json["sprite_box"].is_object())
+        {
+            tile.sprite_box = Box<int>::from(json["sprite_box"]);
+        }
 
         return tile;
     }
@@ -59,9 +59,9 @@ struct Tile
     {
         json11::Json::object obj
             {
-//                {"tileset_path", tileset_path}
-//                , {"tileset_box", json11::Json(tileset_position)}
-//                , {"sprite_box", json11::Json(sprite_box)}
+                {"tileset_path", tileset_path}
+                , {"tileset_box", json11::Json(tileset_position)}
+                , {"sprite_box", json11::Json(sprite_box)}
             };
 //        if (collision_box)
 //        {

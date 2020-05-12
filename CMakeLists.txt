@@ -16,6 +16,7 @@ set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
                    src/core.cpp
                    src/fonts.cpp
                    src/json11_from_file.cpp
+                   src/level_editor.cpp
                    src/play_level_core.cpp
                    src/play_level_draw.cpp
                    src/play_level_handle_input.cpp

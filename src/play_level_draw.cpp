@@ -72,6 +72,8 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
     auto sprite = texture_container_player.get_as_sprite(CreatureSequence::casting_swing, context.player.animation_controller.current_frame,
         {context.player.position.x, context.player.position.y});
 
+    context.scene.draw(window);
+
     //sprite.setScale(3, 3);
 
     window.setView(view);
