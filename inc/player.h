@@ -93,7 +93,7 @@ struct Player
 
     } input_state;
 
-    Vector2f position {900, 500};
+    Vector2f position {640/2, 360/2};
     Vector2f speed {};
 
     State state = State::idle;

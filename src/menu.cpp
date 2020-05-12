@@ -32,11 +32,13 @@ struct MenuContextData
 namespace
 {
 
+auto constexpr scale = 640.f/1920.f; // TODO fix the sprites
+
 void init_menu_impl(sf::RenderWindow& window, MenuContextData& menu_context)
 {
-    constexpr int width_pixels = 590;
-    constexpr int height_pixels = 70;
-    constexpr int spacing_pixels = 5;
+    constexpr int width_pixels = 590.f * scale;
+    constexpr int height_pixels = 70.f * scale;
+    constexpr int spacing_pixels = 5.f * scale;
 
     auto const size_x = static_cast<int>(window.getSize().x);
     auto const size_y = static_cast<int>(window.getSize().y);
@@ -52,7 +54,7 @@ void init_menu_impl(sf::RenderWindow& window, MenuContextData& menu_context)
     }
 }
 
-void handle_menu_input_impl(sf::Event const& event, MenuContextData& menu_context)
+void handle_menu_input_impl(sf::Event const& event, MenuContextData& menu_context, sf::RenderWindow& window)
 {
     auto const& menu_entries = menu_context.menu_entries;
 
@@ -80,7 +82,7 @@ void handle_menu_input_impl(sf::Event const& event, MenuContextData& menu_contex
         }
     }
 
-    auto const mouse_position = sf::Mouse::getPosition();
+    auto const mouse_position = sf::Mouse::getPosition(window);
     auto const mouse_as_point = Vector2i{mouse_position.x, mouse_position.y};
 
     for (auto& entry : menu_context.menu_entries)
@@ -112,6 +114,8 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
     sf::Sprite background_sprite(AssetManager::instance().get_texture(background));
 
     window.clear();
+
+    background_sprite.setScale(scale, scale);
     window.draw(background_sprite);
 
     for (auto const& entry : menu_context.menu_entries)
@@ -125,9 +129,10 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
         text.setCharacterSize(42);
         text.setFillColor(sf::Color::Black); text.setOutlineColor(sf::Color::Black);
         text.setString(entry.text);
+        text.setScale(scale, scale);
 
-        auto const text_pos_x = (entry.runtime_state.box.size.x - text.getLocalBounds().width) / 2 + entry.runtime_state.box.upper_left.x;
-        text.setPosition(text_pos_x, static_cast<float>(entry.runtime_state.box.upper_left.y) + 7.f);
+        auto const text_pos_x = (entry.runtime_state.box.size.x - scale * text.getLocalBounds().width) / 2 + entry.runtime_state.box.upper_left.x;
+        text.setPosition(text_pos_x, static_cast<float>(entry.runtime_state.box.upper_left.y) + 3.f);
 
         if (entry.runtime_state.is_hovered)
         {
@@ -137,6 +142,8 @@ void draw_menu_impl(sf::RenderWindow& window, MenuContextData const& menu_contex
         {
             menu_sprite.setTextureRect(sf::IntRect{0, 0, 590, 70});
         }
+
+        menu_sprite.setScale(scale, scale);
 
         menu_sprite.setPosition(x, y);
         window.draw(menu_sprite);
@@ -161,7 +168,7 @@ struct Menu : public State
 
     void handle_input(sf::Event const& event) override
     {
-        handle_menu_input_impl(event, context);
+        handle_menu_input_impl(event, context, *m_window);
     }
 
     void update(float) override

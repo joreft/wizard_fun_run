@@ -32,7 +32,7 @@ constexpr void handle_player_casting_animation(Player& player, float s_elapsed)
 {
     player.state_accumulated_time += s_elapsed;
 
-    if (player.state_accumulated_time > 0.15f * 4.f)
+    if (player.state_accumulated_time > 0.15f * 3.f)
     {
         player.state_accumulated_time = 0;
         player.state = Player::State::idle;

@@ -17,12 +17,15 @@ int main()
     LOG_INFO("Starting up codename wizard_fun_run");
 
     //sf::VideoMode mode {500, 400, 32};
-    auto const settings  = jeagle::WindowSettings{sf::VideoMode::getDesktopMode(),
+    auto const settings  = jeagle::WindowSettings{{640, 360},
                                                   std::string("Wizard Fun Run"),
-                                                  sf::Style::Fullscreen
+                                                   sf::Style::Default
                                                  };
 
     jeagle::start_main_menu();
+
+    // This runs the loop, nothing "graphical" happens until
+    // here
     jeagle::core::run(settings);
 
     LOG_INFO("Exiting wizard_fun_run");

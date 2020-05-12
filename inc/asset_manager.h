@@ -26,7 +26,6 @@ struct AssetManager
 
     bool ensure_font_loaded(std::string const& font_path);
     sf::Font const& get_font(std::string const& path) const;
-
     sf::Font const& get_default_font() const;
 
     static AssetManager& instance();
