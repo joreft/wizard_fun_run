@@ -82,7 +82,7 @@ void handle_menu_input_impl(sf::Event const& event, MenuContextData& menu_contex
         }
     }
 
-    auto const mouse_position = sf::Mouse::getPosition(window);
+    auto const mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
     auto const mouse_as_point = Vector2i{mouse_position.x, mouse_position.y};
 
     for (auto& entry : menu_context.menu_entries)
