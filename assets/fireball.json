@@ -1,11 +1,65 @@
 { "frames": [
    {
-    "filename": "Layer 1_0.aseprite",
-    "frame": { "x": 0, "y": 0, "w": 20, "h": 20 },
+    "filename": "blazing_0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 20, "h": 10 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
-    "sourceSize": { "w": 20, "h": 20 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
+    "duration": 100
+   },
+   {
+    "filename": "blazing_1.aseprite",
+    "frame": { "x": 20, "y": 0, "w": 20, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
+    "duration": 100
+   },
+   {
+    "filename": "blazing_2.aseprite",
+    "frame": { "x": 40, "y": 0, "w": 20, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
+    "duration": 100
+   },
+   {
+    "filename": "blazing_3.aseprite",
+    "frame": { "x": 60, "y": 0, "w": 20, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
+    "duration": 100
+   },
+   {
+    "filename": "blazing_4.aseprite",
+    "frame": { "x": 80, "y": 0, "w": 20, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
+    "duration": 100
+   },
+   {
+    "filename": "blazing_5.aseprite",
+    "frame": { "x": 100, "y": 0, "w": 20, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
+    "duration": 100
+   },
+   {
+    "filename": "blazing_6.aseprite",
+    "frame": { "x": 120, "y": 0, "w": 20, "h": 10 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 10 },
+    "sourceSize": { "w": 20, "h": 10 },
     "duration": 100
    }
  ],
@@ -14,9 +68,10 @@
   "version": "1.2.18-x64",
   "image": "fireball.png",
   "format": "RGBA8888",
-  "size": { "w": 20, "h": 20 },
+  "size": { "w": 140, "h": 10 },
   "scale": "1",
   "frameTags": [
+   { "name": "blazing", "from": 0, "to": 6, "direction": "forward" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }

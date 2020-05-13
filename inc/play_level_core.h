@@ -18,7 +18,12 @@ namespace jeagle
 
 struct Projectile
 {
-    Box<int> collision;
+    Box<int> collision {};
+
+    Vector2f speed {};
+
+    float time_accumulator {};
+    int frame {};
 };
 
 struct PlayLevelCoreContextData

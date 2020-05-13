@@ -74,9 +74,24 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
     auto sprite = texture_container_player.get_as_sprite(context.player.animation_controller.sequence, context.player.animation_controller.current_frame,
         {context.player.position.x, context.player.position.y});
 
+    window.setView(view);
     context.scene.draw(window);
 
-    window.setView(view);
+    sf::Texture const& ball_texture = AssetManager::instance().get_texture("assets/fireball.png");
+
+    for (auto const& p : context.projectiles)
+    {
+
+        sf::Sprite ball(ball_texture);
+        ball.setOrigin(14, 2);
+
+        ball.setTextureRect(sf::IntRect{20 * p.frame, 0, 20, 10});
+        LOG_DEBUG("Position {}", p.frame * 20);
+        ball.setPosition(p.collision.upper_left.x, p.collision.upper_left.y);
+
+        window.draw(ball);
+    }
+
 
     window.draw(sprite);
 

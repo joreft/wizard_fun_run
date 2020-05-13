@@ -82,7 +82,7 @@ int run(WindowSettings const &settings)
     for (auto const& mode : sf::VideoMode::getFullscreenModes())
     {
         LOG_DEBUG("{}, {}", mode.width, mode.height);
-        if (mode.width == 640 && mode.height == 400)
+        if (mode.width == 640 && mode.height == 360)
         {
             LOG_DEBUG("FOUND IT");
         }

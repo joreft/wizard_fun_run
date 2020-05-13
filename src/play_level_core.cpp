@@ -24,6 +24,7 @@ struct PlayLevelCore : public State
       player.position.y = 241 - player.animation_controller.frames_in_state.at(0).size.y;
 
       AssetManager::instance().ensure_animated_texture_loaded(player_texture_path);
+      AssetManager::instance().ensure_texture_loaded("assets/fireball.png");
   }
 
   void handle_input(sf::Event const& event) override
