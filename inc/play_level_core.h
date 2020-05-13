@@ -16,11 +16,17 @@
 namespace jeagle
 {
 
+struct Projectile
+{
+    Box<int> collision;
+};
+
 struct PlayLevelCoreContextData
 {
     Player player;
     Scene scene = Scene(std::string("assets/levels/level1.json"));
 
+    std::vector<Projectile> projectiles;
 
     // Debug info
     int fps {};

@@ -19,33 +19,14 @@ void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreCont
             context.player.input_state.cast_requested = true;
         }
 
-        if (event.key.code == sf::Keyboard::Down)
-        {
-            context.player.input_state.direction = Player::InputState::MoveDirection::down;
-        }
-
         if (event.key.code == sf::Keyboard::Right)
         {
-            context.player.input_state.direction = Player::InputState::MoveDirection::right;
-        }
-
-        if (event.key.code == sf::Keyboard::Down)
-        {
-            context.player.input_state.direction = Player::InputState::MoveDirection::down;
-        }
-
-        if (event.key.code == sf::Keyboard::Right)
-        {
-            context.player.input_state.direction = Player::InputState::MoveDirection::right;
-        }
-        if (event.key.code == sf::Keyboard::Up)
-        {
-            context.player.input_state.direction = Player::InputState::MoveDirection::up;
+            key_input_state.right_pressed = true;
         }
 
         if (event.key.code == sf::Keyboard::Left)
         {
-            context.player.input_state.direction = Player::InputState::MoveDirection::left;
+            key_input_state.left_pressed = true;
         }
 
     }
@@ -62,14 +43,14 @@ void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreCont
             context.player.input_state.cast_requested = false;
         }
 
-        if (event.key.code == sf::Keyboard::Down)
-        {
-            //context.player.state = Player::State::CASTING_SWING;
-        }
-
         if (event.key.code == sf::Keyboard::Right)
         {
-            // context.player.state = Player::State::;
+            key_input_state.right_pressed = false;
+        }
+
+        if (event.key.code == sf::Keyboard::Left)
+        {
+            key_input_state.left_pressed = false;
         }
     }
 

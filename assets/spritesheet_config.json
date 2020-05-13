@@ -1,0 +1,12 @@
+{
+    "spritesheets" : [
+        {
+            "friendly_name" : "Grass stuff",
+            "path" : "assets/grassy_tiles.png",
+            "dimensions" : {
+                "x" : 16,
+                "y" : 16
+            }
+        }
+    ]
+}

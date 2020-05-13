@@ -21,6 +21,8 @@ struct PlayLevelCore : public State
       player.animation_controller.frames_in_state = player.asset_data.casting_boxes;
       player.animation_controller.millisecond_per_frame = 200;
 
+      player.position.y = 241 - player.animation_controller.frames_in_state.at(0).size.y;
+
       AssetManager::instance().ensure_animated_texture_loaded(player_texture_path);
   }
 

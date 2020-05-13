@@ -2,6 +2,7 @@
 
 #include "box.h"
 #include "log.h"
+#include "texture_container.h"
 #include <json11/json11.hpp>
 
 #include <boost/algorithm/string.hpp>
@@ -77,14 +78,16 @@ struct Player
     {
           idle
         , casting_swing
+        , walking
         //, casting_backswing
     };
 
     struct InputState
     {
+        // used for walking logic
         enum class MoveDirection
         {
-            up, left, right, down, none
+            left, right, none
         };
 
         bool cast_requested {};
@@ -93,7 +96,7 @@ struct Player
 
     } input_state;
 
-    Vector2f position {640/2, 360/2};
+    Vector2f position {30, 360/2};
     Vector2f speed {};
 
     State state = State::idle;
@@ -106,6 +109,7 @@ struct Player
         std::vector<Box<int>> frames_in_state;
         std::size_t current_frame;
         std::string texture_key;
+        CreatureSequence sequence;
 
     } animation_controller;
 };

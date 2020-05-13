@@ -18,6 +18,8 @@ std::string stringify_state(Player::State state)
             return "casting_swing";
         case Player::State::idle:
             return "idle";
+        case Player::State::walking:
+            return "walking";
     }
 
     return "unknown";
@@ -69,7 +71,7 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
 
     auto const& texture_container_player = AssetManager::instance().get_animated_texture_container(player_texture_path);
 
-    auto sprite = texture_container_player.get_as_sprite(CreatureSequence::casting_swing, context.player.animation_controller.current_frame,
+    auto sprite = texture_container_player.get_as_sprite(context.player.animation_controller.sequence, context.player.animation_controller.current_frame,
         {context.player.position.x, context.player.position.y});
 
     context.scene.draw(window);
