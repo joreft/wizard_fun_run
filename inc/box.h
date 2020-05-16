@@ -24,8 +24,8 @@ struct Box
         Box box {};
         if (json["upper_left"]["x"].is_number() && json["upper_left"]["y"].is_number())
         {
-            box.upper_left = Vector2i{static_cast<float>(json["upper_left"]["x"].number_value()),
-                                      static_cast<float>(json["upper_left"]["y"].number_value())};
+            box.upper_left = Vector2i{json["upper_left"]["x"].int_value(),
+                                      json["upper_left"]["y"].int_value()};
         }
         else
         {
@@ -35,8 +35,8 @@ struct Box
 
         if (json["size"]["x"].is_number() && json["size"]["y"].is_number())
         {
-            box.size = Vector2i{static_cast<float>(json["size"]["x"].number_value()),
-                                static_cast<float>(json["size"]["y"].number_value())};
+            box.size = Vector2i{json["size"]["x"].int_value(),
+                                json["size"]["y"].int_value()};
         }
         else
         {

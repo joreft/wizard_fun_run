@@ -76,17 +76,9 @@ int run(WindowSettings const &settings)
     }
 
     auto window = sf::RenderWindow(settings.mode, settings.title, settings.style);
-//    window.setSize({640, 400});
+
     LOG_DEBUG("Setting up render window with dimensions {}x{}", window.getSize().x, window.getSize().y);
 
-    for (auto const& mode : sf::VideoMode::getFullscreenModes())
-    {
-        LOG_DEBUG("{}, {}", mode.width, mode.height);
-        if (mode.width == 640 && mode.height == 360)
-        {
-            LOG_DEBUG("FOUND IT");
-        }
-    }
     window.setVerticalSyncEnabled(true);
 
     // Make sure repeated key events never happen

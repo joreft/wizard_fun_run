@@ -28,7 +28,7 @@ static constexpr const int grid_size_pixels = 16;
 struct Spritesheet
 {
     std::string friendly_name;
-    Vector2f tile_size;
+    Vector2i tile_size;
     sf::Texture const& texture;
     std::string texture_path;
 
@@ -38,8 +38,8 @@ struct Spritesheet
         AssetManager::instance().ensure_texture_loaded(spritesheet_path);
 
         return {json["friendly_name"].string_value(),
-                Vector2f{static_cast<float>(json["dimensions"]["x"].int_value()),
-                         static_cast<float>(json["dimensions"]["y"].int_value())},
+                Vector2i{json["dimensions"]["x"].int_value(),
+                         json["dimensions"]["y"].int_value()},
 
                 AssetManager::instance().get_texture(spritesheet_path),
                 spritesheet_path};
@@ -198,7 +198,7 @@ public:
 
         if (selected)
         {
-            selected->set_box_position_and_size(Box<int>{{mouse_pos.x, mouse_pos.y},
+            selected->set_box_position_and_size(Box<int>{{static_cast<int>(mouse_pos.x), static_cast<int>(mouse_pos.y)},
                                                     {default_width, default_width * (selected->position_in_texture.size.y)/selected->position_in_texture.size.x}}, snap_to_grid_mode);
         }
 
@@ -280,12 +280,12 @@ public:
         sprites = std::vector<sf::Sprite>();
         auto const size = spritesheet.texture.getSize();
 
-        auto const x_max = size.x / spritesheet.tile_size.x;
-        auto const y_max = size.y / spritesheet.tile_size.y;
+        auto const x_max = static_cast<int>(size.x) / spritesheet.tile_size.x;
+        auto const y_max = static_cast<int>(size.y) / spritesheet.tile_size.y;
 
-        for (unsigned int y = 0; y < y_max; ++y)
+        for (int y = 0; y < y_max; ++y)
         {
-            for (unsigned int x = 0; x < x_max; ++x)
+            for (int x = 0; x < x_max; ++x)
             {
                 sf::Sprite sprite;
                 sprite.setTexture(spritesheet.texture);
@@ -300,7 +300,7 @@ public:
                     selected.emplace(Selected(
                         spritesheet.texture_path ,
                         Box<int>{
-                            {spritesheet.tile_size.x*x, spritesheet.tile_size.y*y},
+                            {spritesheet.tile_size.x * x, spritesheet.tile_size.y * y},
                             {spritesheet.tile_size.x, spritesheet.tile_size.y }
                         }));
                 }
