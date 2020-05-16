@@ -115,7 +115,7 @@ public:
     void init()
     {
         ImGui::SFML::Init(*m_window);
-        scene_view.setSize(m_window->getSize().x, m_window->getSize().y);
+        scene_view.setSize(640, 360);
         scene_view.setCenter(m_window->getSize().x/2, m_window->getSize().y/2);
     }
 
@@ -342,7 +342,7 @@ private:
 
     sf::View scene_view;
 
-    bool snap_to_grid_mode = false;
+    bool snap_to_grid_mode = true;
     bool non_colliding_block = false;
 
     sf::Vector2i last_frame_mouse_position;

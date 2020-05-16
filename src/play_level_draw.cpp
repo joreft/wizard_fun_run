@@ -28,14 +28,13 @@ std::string stringify_state(Player::State state)
 #ifndef NDEBUG
 static void draw_debug_info(sf::RenderWindow& window, sf::View view, Player const& player, int fps)
 {
-    using namespace fmt;
     std::vector<std::string> const debug_info
     {
-        format("FPS: {}", fps),
-        format("Position, x: {:.2f}, y: {:.2f}", player.position.x, player.position.y),
-        format("Speed, x: {:.2f}, y: {:.2f}", player.speed.x, player.speed.y),
-        format("Player state: {}", stringify_state(player.state))
-        //format("Acceleration, x: {:.2f}, y: {:.2f}", player_newtonian->acceleration.x, player_newtonian->acceleration.y)
+        fmt::format("FPS: {}", fps),
+        fmt::format("Position, x: {:.2f}, y: {:.2f}", player.position.x, player.position.y),
+        fmt::format("Speed, x: {:.2f}, y: {:.2f}", player.speed.x, player.speed.y),
+        fmt::format("Player state: {}", stringify_state(player.state))
+        //fmt::format("Acceleration, x: {:.2f}, y: {:.2f}", player_newtonian->acceleration.x, player_newtonian->acceleration.y)
     };
 
     auto const text_size = 14;
@@ -86,12 +85,10 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
         ball.setOrigin(14, 2);
 
         ball.setTextureRect(sf::IntRect{20 * p.frame, 0, 20, 10});
-        LOG_DEBUG("Position {}", p.frame * 20);
         ball.setPosition(p.collision.upper_left.x, p.collision.upper_left.y);
 
         window.draw(ball);
     }
-
 
     window.draw(sprite);
 
