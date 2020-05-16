@@ -3,7 +3,7 @@
 #include "asset_manager.h"
 #include "conversion.h"
 #include "fonts.h"
-#include "level_tiles.h"
+#include "scene.h"
 
 #include <fmt/format.h>
 
@@ -68,7 +68,7 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
 
     sf::View view = window.getDefaultView();
 
-    auto const& texture_container_player = AssetManager::instance().get_animated_texture_container(player_texture_path);
+    auto const& texture_container_player = AssetManager::instance().get_animated_texture_container(paths::player_texture_name);
 
     auto sprite = texture_container_player.get_as_sprite(context.player.animation_controller.sequence, context.player.animation_controller.current_frame,
         {context.player.position.x, context.player.position.y});

@@ -12,8 +12,8 @@ namespace jeagle
 
 CreatureTextureContainer parse_creature_texture_and_metadata(std::string const& texture_path)
 {
-    auto const metadata_path = texture_path + texture_metadata_suffix;
-    auto const content_path = texture_path + texture_content_sufffix;
+    auto const metadata_path = texture_path + paths::texture_metadata_suffix;
+    auto const content_path = texture_path + paths::texture_content_suffix;
 
     sf::Texture texture;
     if (!texture.loadFromFile(content_path))

@@ -6,7 +6,7 @@
 
 #include "asset_manager.h"
 #include "core.h"
-#include "level_tiles.h"
+#include "scene.h"
 
 #include <json11/json11.hpp>
 
@@ -116,7 +116,7 @@ public:
     {
         ImGui::SFML::Init(*m_window);
         scene_view.setSize(640, 360);
-        scene_view.setCenter(m_window->getSize().x/2, m_window->getSize().y/2);
+        scene_view.setCenter(640/2, 360/2);
     }
 
     void set_window(sf::RenderWindow *new_window) override
@@ -209,10 +209,12 @@ public:
     {
         auto const delta_time = sf::seconds(s_elapsed);
         ImGui::SFML::Update(*m_window, delta_time);
-        ImGui::Begin("Hello, world!");
+        ImGui::Begin("Base edit panel");
 
         if (ImGui::Button("Select scene"))
+        {
             ImGui::OpenPopup("my_file_popup");
+        }
 
         if (ImGui::Button("Delete level content"))
         {
@@ -237,8 +239,13 @@ public:
             create_button_grid_from_spritesheet(*selected_spritesheet);
         }
 
+        // Use this at some point to do tile manipulation
+        ImGui::Begin("Selected tile");
+        ImGui::Button("Delete tile");
         ImGui::End();
+        // end tile manipulation
 
+        ImGui::End();
     }
 
     void draw() override

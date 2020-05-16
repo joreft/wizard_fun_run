@@ -63,10 +63,10 @@ struct Tile
                 , {"tileset_box", json11::Json(tileset_position)}
                 , {"sprite_box", json11::Json(sprite_box)}
             };
-//        if (collision_box)
-//        {
-//            obj["collision_box"] = json11::Json(*collision_box);
-//        }
+        if (collision_box)
+        {
+            obj["collision_box"] = json11::Json(*collision_box);
+        }
 
         return obj;
     }

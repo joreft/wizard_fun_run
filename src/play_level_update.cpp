@@ -1,3 +1,4 @@
+#include "physics.h"
 #include "play_level_core.h"
 
 namespace jeagle
@@ -5,7 +6,6 @@ namespace jeagle
 
 static constexpr float max_player_walk_speed = 90;
 static constexpr auto player_acceleration = Vector2f {250.f, 0.f}; // pixels per second
-
 
 constexpr void transition_player_state(Player::State const new_state, Player& player)
 {

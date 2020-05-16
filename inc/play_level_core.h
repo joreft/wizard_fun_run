@@ -4,7 +4,7 @@
 #include "json11_from_file.h"
 #include "player.h"
 #include "texture_paths.h"
-#include "level_tiles.h"
+#include "scene.h"
 #include "log.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>

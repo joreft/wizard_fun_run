@@ -3,9 +3,13 @@
 namespace jeagle
 {
 
-inline constexpr char player_texture_path[] = "assets/character";
+namespace paths
+{
+
+inline constexpr char player_texture_name[] = "assets/character";
 
 inline constexpr char texture_metadata_suffix[] = ".json";
-inline constexpr char texture_content_sufffix[] = ".png";
+inline constexpr char texture_content_suffix[] = ".png";
 
+}
 } // namespace jeagle
