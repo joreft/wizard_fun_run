@@ -72,7 +72,7 @@ int run(WindowSettings const &settings)
     if (!next_state)
     {
         LOG_DEBUG("Fatal application error: No initial state");
-        return -1; // No state was queued for state machine inititalisation
+        return -1; // No state was queued for state machine initialisation
     }
 
     auto window = sf::RenderWindow(settings.mode, settings.title, settings.style);

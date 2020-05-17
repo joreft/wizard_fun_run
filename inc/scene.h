@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include "box.h"
 #include "asset_manager.h"
 
@@ -93,7 +91,8 @@ inline void add_to_vertex_array_quads(Box<int> const& position_in_sheet, Box<int
 }
 
 /**
- * I don't want to use that many draw calls...
+ * We use this trick to only do one draw call for each texture in the scene
+ * instead of doing it for every sprite
  */
 struct DrawableBuffer : public sf::Drawable
 {
@@ -117,7 +116,8 @@ struct DrawableBuffer : public sf::Drawable
 struct Scene
 {
 public:
-    Scene(){}
+    Scene() {}
+
     Scene(std::string const& full_path) : scene_path(full_path)
     {
         std::ifstream level(std::string(full_path).c_str()); // fuck this
@@ -130,7 +130,6 @@ public:
         {
             throw SceneCreationException(fmt::format("Unable to parse json from scene with '{}'", e));
         }
-
 
         for (auto const& tile : scene_json["tiles"].array_items())
         {
@@ -145,20 +144,11 @@ public:
         }
     }
 
-    static Scene CreateEmptyScene(std::string const& file_path)
+    static Scene create_empty(std::string const& file_path)
     {
         Scene scene{};
         scene.scene_path = file_path;
         return scene;
-    }
-
-    void refill_drawables()
-    {
-        drawables = {};
-        for (auto const& tile : tiles)
-        {
-            add_to_drawables(tile, AssetManager::instance().get_texture(tile.tileset_path));
-        }
     }
 
     void draw(sf::RenderWindow& window)
@@ -207,7 +197,7 @@ public:
 
     void erase()
     {
-        *this = CreateEmptyScene(scene_path);
+        *this = create_empty(scene_path);
     }
 
 private:
@@ -215,8 +205,6 @@ private:
     std::string scene_path;
 
     std::map<std::string, DrawableBuffer> drawables;
-
-    //std::vector<b2PolygonShape> boxes;
 
 private:
     void add_to_drawables(Tile const& tile, sf::Texture const& texture)
@@ -226,7 +214,12 @@ private:
             drawables.emplace(std::pair(tile.tileset_path, DrawableBuffer(texture)));
         }
         auto const it = drawables.find(tile.tileset_path); // TODO dirty stuff as there's already been a search
-        if (it == drawables.end()) LOG_DEBUG("WTF");
+
+        if (it == drawables.end())
+        {
+            LOG_WARNING("Application error: did not find tileset_path {} ", tile.tileset_path);
+            return;
+        }
         it->second.add(tile.tileset_position, tile.sprite_box);
     }
 

@@ -2,6 +2,7 @@
 
 #include "box.h"
 #include "json11_from_file.h"
+#include "physics.h"
 #include "player.h"
 #include "texture_paths.h"
 #include "scene.h"
@@ -28,10 +29,11 @@ struct Projectile
 
 struct PlayLevelCoreContextData
 {
-    Player player;
+    Player player {};
     Scene scene = Scene(std::string("assets/levels/level1.json"));
 
-    std::vector<Projectile> projectiles;
+    PhysicsWorld physics_world {};
+    std::vector<Projectile> projectiles {};
 
     // Debug info
     int fps {};

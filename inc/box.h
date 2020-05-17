@@ -62,7 +62,7 @@ struct Box
 
         return json11::Json::object
             {
-                {"upper_left", upper_left_json}
+                  {"upper_left", upper_left_json}
                 , {"size",             size_json}
             };
     }
