@@ -96,6 +96,7 @@ struct Player
 
     } input_state;
 
+    bool facing_left = {};
     Vector2f position {30, 360/2};
     Vector2f speed {};
 
@@ -106,7 +107,6 @@ struct Player
     {
         State state;
         int millisecond_per_frame;
-        std::vector<Box<int>> frames_in_state;
         std::size_t current_frame;
         std::string texture_key;
         CreatureSequence sequence;

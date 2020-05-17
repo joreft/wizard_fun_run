@@ -27,6 +27,13 @@ struct Projectile
     int frame {};
 };
 
+struct KeyInputState
+{
+    bool left_pressed {};
+    bool right_pressed {};
+    bool jump_pressed {};
+};
+
 struct PlayLevelCoreContextData
 {
     Player player {};
@@ -35,21 +42,37 @@ struct PlayLevelCoreContextData
     PhysicsWorld physics_world {};
     std::vector<Projectile> projectiles {};
 
+    KeyInputState key_input_state {};
+
     // Debug info
     int fps {};
 };
 
-struct KeyInputState
-{
-    bool left_pressed {};
-    bool right_pressed {};
-    bool jump_pressed {};
-};
-
 void start_play_level_core();
 
-void play_level_core_handle_input_impl(sf::Event const& event, PlayLevelCoreContextData& context, KeyInputState& key_input_state);
+/**
+ * This is mostly used for populating input structures
+ *
+ * Note that it should NOT change the state of the physical game directly
+ *
+ * but rather indirectly through messages to the update method. E.g. handle_input
+ * will say that the left and/or right button is pressed, but it will not decide
+ * which direction the player should move.
+ */
+void play_level_core_handle_input_impl(sf::Event const& event, PlayLevelCoreContextData& context);
+
+/**
+ * The game logic happens here!
+ *
+ * So this is a big one.
+ */
 void play_level_core_update_impl(PlayLevelCoreContextData& context, float s_elapsed);
+
+/**
+ * The function name is probably self sufficient. But this handles rendering to the screen.
+ *
+ * It may also be used for minimap logic or similar at some point
+ */
 void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextData& context);
 
 } // namespace jeagle

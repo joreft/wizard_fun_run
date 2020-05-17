@@ -142,6 +142,15 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
     "sourceSize": { "w": 32, "h": 48 },
     "duration": 200
+   },
+   {
+    "filename": "idle_0.aseprite",
+    "frame": { "x": 0, "y": 96, "w": 32, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
+    "sourceSize": { "w": 32, "h": 48 },
+    "duration": 300
    }
  ],
  "meta": {
@@ -149,13 +158,15 @@
   "version": "1.2.18-x64",
   "image": "character.png",
   "format": "RGBA8888",
-  "size": { "w": 320, "h": 96 },
+  "size": { "w": 320, "h": 144 },
   "scale": "1",
   "frameTags": [
    { "name": "casting", "from": 0, "to": 5, "direction": "forward" },
-   { "name": "walking", "from": 6, "to": 15, "direction": "forward" }
+   { "name": "walking", "from": 6, "to": 15, "direction": "forward" },
+   { "name": "idle", "from": 16, "to": 16, "direction": "forward" }
   ],
   "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
   ],

@@ -19,12 +19,17 @@ struct ImmovableBody
 
 struct MovableBody
 {
-    Box<float> collision_box {};
+    struct State
+    {
+        Box<float> collision_box {};
+        Vector2f speed {};
 
-    Vector2f speed {};
+        int marked_as_dead {};
+        int section_snapped_to_last_frame {};
+    };
 
-    int marked_as_dead {};
-    int section_snapped_to_last_frame {};
+    State current_frame;
+    State last_frame;
 };
 
 /**
@@ -93,6 +98,12 @@ struct PhysicsWorld
     // of the size of the level
     std::vector<Section> sections {};
 
+    /**
+     * Returns a non-owning raw pointer to the physical object.
+     *
+     * This is used so that the game logic can both query and modify the
+     * physical object according to the game rules
+     */
     MovableBody* register_movable_body(MovableBody const& body)
     {
         auto ptr = std::make_unique<MovableBody>(body);
@@ -103,13 +114,13 @@ struct PhysicsWorld
 
     void unregister_movable_body(MovableBody* body)
     {
-        body->marked_as_dead = true;
+        body->current_frame.marked_as_dead = true;
     }
 
     void garbage_collect()
     {
         auto erase_from = std::remove_if(begin(movable_bodies), end(movable_bodies),
-                                         [] (auto& body) {return body->marked_as_dead;} );
+                                         [] (auto& body) {return body->current_frame.marked_as_dead;} );
 
         movable_bodies.erase(erase_from, end(movable_bodies));
     }

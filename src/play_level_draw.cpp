@@ -73,6 +73,13 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
     auto sprite = texture_container_player.get_as_sprite(context.player.animation_controller.sequence, context.player.animation_controller.current_frame,
         {context.player.position.x, context.player.position.y});
 
+    if (context.player.facing_left)
+    {
+        // TODO remove hard coded based on asset
+        sprite.setOrigin(31, 0);
+        sprite.setScale(-1, 1);
+    }
+
     window.setView(view);
     context.scene.draw(window);
 

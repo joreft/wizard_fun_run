@@ -18,10 +18,10 @@ struct PlayLevelCore : public State
       auto& player = context.player;
       player.asset_data = load_player_asset_data();
       player.animation_controller.texture_key = "assets/character.png";
-      player.animation_controller.frames_in_state = player.asset_data.casting_boxes;
       player.animation_controller.millisecond_per_frame = 200;
+      player.animation_controller.current_frame = 0;
 
-      player.position.y = 241 - player.animation_controller.frames_in_state.at(0).size.y;
+      player.position.y = 241 - player.asset_data.casting_boxes.at(0).size.y;
 
       AssetManager::instance().ensure_animated_texture_loaded(paths::player_texture_name);
       AssetManager::instance().ensure_texture_loaded("assets/fireball.png");
@@ -29,7 +29,7 @@ struct PlayLevelCore : public State
 
   void handle_input(sf::Event const& event) override
   {
-      play_level_core_handle_input_impl(event, context, key_input_state);
+      play_level_core_handle_input_impl(event, context);
   }
 
   void update(float s_elapsed) override
@@ -44,7 +44,6 @@ struct PlayLevelCore : public State
 
 private:
     PlayLevelCoreContextData context {};
-    KeyInputState key_input_state {};
 };
 
 void start_play_level_core()
