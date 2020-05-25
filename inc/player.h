@@ -97,11 +97,25 @@ struct Player
     } input_state;
 
     bool facing_left = {};
-    Vector2f position {30, 360/2};
-    Vector2f speed {};
 
     State state = State::idle;
     float state_accumulated_time = 0;
+    MovableBody* physics_handle {};
+
+    struct PositionHandle
+    {
+        float& x; float& y;
+    };
+
+    PositionHandle get_position_ref()
+    {
+        return {physics_handle->current_frame.collision_box.upper_left.x, physics_handle->current_frame.collision_box.upper_left.y};
+    }
+
+    Vector2f get_position_as_vec() const
+    {
+        return {physics_handle->current_frame.collision_box.upper_left.x, physics_handle->current_frame.collision_box.upper_left.y};
+    }
 
     struct AnimationController
     {

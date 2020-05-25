@@ -1,7 +1,8 @@
 #pragma once
 
-#include "box.h"
 #include "asset_manager.h"
+#include "box.h"
+#include "physics.h"
 
 #include <json11/json11.hpp>
 #include <SFML/Window.hpp>
@@ -118,7 +119,7 @@ struct Scene
 public:
     Scene() {}
 
-    Scene(std::string const& full_path) : scene_path(full_path)
+    Scene(std::string const& full_path, jeagle::PhysicsWorld* physics = nullptr) : scene_path(full_path), physics(physics)
     {
         std::ifstream level(std::string(full_path).c_str()); // fuck this
         std::stringstream buffer;
@@ -138,6 +139,14 @@ public:
             AssetManager::instance().ensure_texture_loaded(tile_value.tileset_path);
 
             add_to_drawables(tile_value, AssetManager::instance().get_texture(tile_value.tileset_path)); // Let it throw from main for now
+
+            if (physics && tile_value.collision_box)
+            {
+                // TODO fix this cast and stuff
+                auto float_casted = Box<float> {(float)tile_value.collision_box->upper_left.x, (float)tile_value.collision_box->upper_left.y,
+                                                (float)tile_value.collision_box->size.x, (float)tile_value.collision_box->size.y};
+                physics->insert_immovable(float_casted);
+            }
 
             tiles.emplace_back(std::move(tile_value));
             add_collision_box(tiles.at(tiles.size() - 1));
@@ -205,6 +214,7 @@ private:
     std::string scene_path;
 
     std::map<std::string, DrawableBuffer> drawables;
+    PhysicsWorld* physics;
 
 private:
     void add_to_drawables(Tile const& tile, sf::Texture const& texture)

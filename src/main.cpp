@@ -16,7 +16,6 @@ int main()
 
     LOG_INFO("Starting up codename wizard_fun_run");
 
-    //sf::VideoMode mode {500, 400, 32};
     auto const settings  = jeagle::WindowSettings{{640, 360},
                                                   std::string("Wizard Fun Run"),
                                                    sf::Style::Default

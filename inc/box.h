@@ -66,6 +66,11 @@ struct Box
                 , {"size",             size_json}
             };
     }
+
+    std::string print() const
+    {
+        return fmt::format("upper_left:[x:{}, y:{}],  size:[x:{}, y:{}]", upper_left.x, upper_left.y, size.x, size.y);
+    }
 };
 
 template<typename T>
@@ -85,8 +90,6 @@ static_assert(!point_inside_box(Vector2 <int> {1, 5}, Box <int> {{0, 0}, {1, 2}}
 template <typename T>
 bool constexpr lines_overlap(T line_1_start, T line_1_end, T line_2_start, T line_2_end)
 {
-    static_assert(std::is_integral_v<T> == true, "Only works for integral types");
-
     return (line_1_start < line_2_end) && (line_2_start < line_1_end);
 }
 

@@ -37,9 +37,9 @@ struct KeyInputState
 struct PlayLevelCoreContextData
 {
     Player player {};
-    Scene scene = Scene(std::string("assets/levels/level1.json"));
 
     PhysicsWorld physics_world {};
+    Scene scene = Scene(std::string("assets/levels/level1.json"), &physics_world);
     std::vector<Projectile> projectiles {};
 
     KeyInputState key_input_state {};

@@ -48,6 +48,8 @@ constexpr void transition_player_state(Player::State const new_state, Player& pl
 
 constexpr void handle_player_idle_state(Player& player, float s_elapsed)
 {
+    auto& speed = player.physics_handle->current_frame.speed;
+
     if (player.input_state.cast_requested)
     {
         // initiate  casting state
@@ -56,16 +58,16 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
     }
     else if (player.input_state.direction != Player::InputState::MoveDirection::none)
     {
-        if ((player.speed.x < max_player_walk_speed) && (player.speed.x > -max_player_walk_speed))
+        if ((speed.x < max_player_walk_speed) && (speed.x > -max_player_walk_speed))
         {
             auto const direction = player.input_state.direction == Player::InputState::MoveDirection::right ? 1.f : -1.f;
-            player.speed += player_acceleration * s_elapsed * direction;
+            speed += player_acceleration * s_elapsed * direction;
             transition_player_state(Player::State::walking, player);
         }
     }
     else
     {
-        player.speed = {0.f, 0.f};
+        speed = {0.f, 0.f};
     }
 }
 
@@ -73,16 +75,19 @@ constexpr void handle_player_walking_state(Player& player, float s_elapsed)
 {
     player.state_accumulated_time += s_elapsed;
 
+    auto& player_speed = player.physics_handle->current_frame.speed;
+
+
     if (player.input_state.direction != Player::InputState::MoveDirection::none)
     {
         auto const direction = player.input_state.direction == Player::InputState::MoveDirection::right ? 1.f : -1.f;
-        auto const maybe_new_speed = player.speed + player_acceleration * s_elapsed * direction;
+        auto const maybe_new_speed = player_speed + player_acceleration * s_elapsed * direction;
 
         player.facing_left = direction == -1;
 
         if ((maybe_new_speed.x < max_player_walk_speed) && (maybe_new_speed.x > -max_player_walk_speed))
         {
-            player.speed = maybe_new_speed;
+            player_speed = maybe_new_speed;
         }
 
         constexpr float time_per_frame = 0.1f;
@@ -95,7 +100,7 @@ constexpr void handle_player_walking_state(Player& player, float s_elapsed)
     }
     else if (player.input_state.cast_requested)
     {
-        player.speed = {0.f, 0.f};
+        player_speed = {0.f, 0.f};
         transition_player_state(Player::State::casting_swing, player);
     }
     else
@@ -109,8 +114,8 @@ Projectile spawn_projectile(Player& player)
     Projectile pro{};
 
     pro.speed = {50, 0};
-    pro.collision.upper_left.x = player.position.x + 29;
-    pro.collision.upper_left.y = player.position.y + 10;
+    pro.collision.upper_left.x = player.get_position_as_vec().x + 29;
+    pro.collision.upper_left.y = player.get_position_as_vec().y + 10;
     pro.speed.x = 250;
 
     return pro;
@@ -170,7 +175,13 @@ void play_level_core_update_impl(PlayLevelCoreContextData& context, float s_elap
         }
     }
 
-    context.player.position += s_elapsed * context.player.speed;
+    process_physics(context.physics_world, s_elapsed);
+
+
+    auto const old_position = context.player.get_position_as_vec();
+    auto new_position = old_position + s_elapsed * context.player.physics_handle->current_frame.speed;
+    context.player.get_position_ref().x = new_position.x;
+    context.player.get_position_ref().y = new_position.y;
 
 
 }
