@@ -68,6 +68,9 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
     auto const player_path = context.player.animation_controller.texture_key;
 
     sf::View view = window.getDefaultView();
+    view.setSize(640, 360);
+    view.setCenter(640/2, 360/2);
+
 
     auto const& texture_container_player = AssetManager::instance().get_animated_texture_container(paths::player_texture_name);
 
