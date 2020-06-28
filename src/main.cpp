@@ -14,7 +14,7 @@ int main()
 
     jeagle::fonts::global_preload_all_fonts();
 
-    LOG_INFO("Starting up codename wizard_fun_run");
+    LOG_INFO("Wizard Fun Run: Searching for the pie in the sky");
 
     auto const settings  = jeagle::WindowSettings{{640, 360},
                                                   std::string("Wizard Fun Run"),

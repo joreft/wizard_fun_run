@@ -30,7 +30,7 @@ public:
     virtual void update(float s_elapsed) = 0;
     virtual void draw() = 0;
 
-    virtual void set_window(sf::RenderWindow *window)
+    virtual void set_window(sf::RenderWindow* window)
     {
         if (!window)
         {
@@ -47,7 +47,7 @@ struct WindowSettings
 {
     sf::VideoMode mode;
     std::string title;
-    uint32_t style;
+    std::uint32_t style;
 };
 
 namespace core

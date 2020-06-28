@@ -58,7 +58,7 @@ struct Tile
     {
         json11::Json::object obj
             {
-                {"tileset_path", tileset_path}
+                  {"tileset_path", tileset_path}
                 , {"tileset_box", json11::Json(tileset_position)}
                 , {"sprite_box", json11::Json(sprite_box)}
             };
