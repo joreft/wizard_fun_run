@@ -17,18 +17,20 @@ set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
                    src/fonts.cpp
                    src/json11_from_file.cpp
                    src/level_editor.cpp
+                   src/menu.cpp
                    src/physics.cpp
                    src/play_level_core.cpp
                    src/play_level_draw.cpp
                    src/play_level_handle_input.cpp
                    src/play_level_update.cpp
+                   src/scene.cpp
                    src/texture_container.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
 set (SOURCES_WIZARD_FUN_RUN_TESTS  ${SOURCES_WIZARD_FUN_RUN} tests/tests_main.cpp)
 
-add_executable(wizard_fun_run src/main.cpp ${SOURCES_WIZARD_FUN_RUN} src/menu.cpp)
+add_executable(wizard_fun_run src/main.cpp ${SOURCES_WIZARD_FUN_RUN})
 add_executable(wizard_fun_run_tests ${SOURCES_WIZARD_FUN_RUN_TESTS})
 
 target_include_directories(wizard_fun_run PUBLIC inc)

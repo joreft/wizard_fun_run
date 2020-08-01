@@ -109,6 +109,7 @@ constexpr void handle_player_walking_state(Player& player, float s_elapsed)
     }
 }
 
+// TODO ad parameers generalise
 Projectile spawn_projectile(Player& player)
 {
     Projectile pro{};
