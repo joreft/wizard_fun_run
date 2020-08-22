@@ -29,6 +29,22 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
       run: |
-        cmake CMakeLists.txt
+        sudo apt install python3-pip
+        sudo apt-get install python3-setuptools
+        sudo apt install g++-9
+        sudo apt install gcc-9
+        sudo apt install libgl1-mesa-dev xorg-dev libxcb-render-util0-dev libxcb-xkb-dev
+        sudo apt install libxcb1-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-xinerama0-dev
+
+        # This squashes some warnings
+        pip3 install wheel
+        pip3 install conan
+        export PATH=$PATH:/home/runner/.local/bin
+
+        export CC=gcc-9
+        export CXX=g++-9
+
+        conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+        cmake -DCMAKE_BUILD_TYPE=Release CMakeLists.txt
         make -j12
         ./wizard_fun_run_tests
