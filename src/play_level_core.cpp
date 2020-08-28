@@ -23,11 +23,11 @@ struct PlayLevelCore : public State
 
       MovableBody player_body_initialised {};
 
-      player_body_initialised.current_frame.collision_box =  {30, 360/2, 32, 48};
+      player_body_initialised.collision_box =  {100, 360/2, 32, 48};
 
       auto* player_body = context.physics_world.register_movable_body(player_body_initialised);
-      player.physics_handle = player_body;
-      player.physics_handle->current_frame.collision_box.upper_left.y = 241 - player.asset_data.casting_boxes.at(0).size.y;
+      player.physics_handle = player_body; //241
+      player.physics_handle->collision_box.upper_left.y = 241 - player.asset_data.casting_boxes.at(0).size.y;
 
       AssetManager::instance().ensure_animated_texture_loaded(paths::player_texture_name);
       AssetManager::instance().ensure_texture_loaded("assets/fireball.png");

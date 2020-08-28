@@ -28,7 +28,7 @@ std::string stringify_state(Player::State state)
 #ifndef NDEBUG
 static void draw_debug_info(sf::RenderWindow& window, sf::View view, Player const& player, int fps)
 {
-    auto const& player_speed = player.physics_handle->current_frame.speed;
+    auto const& player_speed = player.physics_handle->speed;
     std::vector<std::string> const debug_info
     {
         fmt::format("FPS: {}", fps),

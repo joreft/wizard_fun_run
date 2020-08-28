@@ -23,6 +23,7 @@ set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
                    src/play_level_draw.cpp
                    src/play_level_handle_input.cpp
                    src/play_level_update.cpp
+                   src/rectangle_collision.cpp
                    src/scene.cpp
                    src/texture_container.cpp)
 

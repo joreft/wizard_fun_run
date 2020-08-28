@@ -48,7 +48,7 @@ constexpr void transition_player_state(Player::State const new_state, Player& pl
 
 constexpr void handle_player_idle_state(Player& player, float s_elapsed)
 {
-    auto& speed = player.physics_handle->current_frame.speed;
+    auto& speed = player.physics_handle->speed;
 
     if (player.input_state.cast_requested)
     {
@@ -75,7 +75,7 @@ constexpr void handle_player_walking_state(Player& player, float s_elapsed)
 {
     player.state_accumulated_time += s_elapsed;
 
-    auto& player_speed = player.physics_handle->current_frame.speed;
+    auto& player_speed = player.physics_handle->speed;
 
 
     if (player.input_state.direction != Player::InputState::MoveDirection::none)
@@ -180,7 +180,7 @@ void play_level_core_update_impl(PlayLevelCoreContextData& context, float s_elap
 
 
     auto const old_position = context.player.get_position_as_vec();
-    auto new_position = old_position + s_elapsed * context.player.physics_handle->current_frame.speed;
+    auto new_position = old_position + s_elapsed * context.player.physics_handle->speed;
     context.player.get_position_ref().x = new_position.x;
     context.player.get_position_ref().y = new_position.y;
 

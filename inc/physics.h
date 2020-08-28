@@ -3,6 +3,7 @@
 #include "box.h"
 #include "log.h"
 #include "vector2.h"
+#include "body.h"
 
 #include <algorithm>
 #include <vector>
@@ -10,31 +11,6 @@
 
 namespace jeagle
 {
-
-struct ImmovableBody
-{
-    Box<float> collision_box {};
-
-    bool solid {};
-};
-
-struct MovableBody
-{
-    struct State
-    {
-        Box<float> collision_box {};
-        Vector2f speed {};
-
-        int marked_as_dead {};
-
-        // At the end of every frame this should
-        // be set to denote the section at which the collision box is in (upper left)
-        int was_at_section {};
-    };
-
-    State current_frame;
-    State last_frame {};
-};
 
 /**
  * Note that the physics system operates with unsigned coordinates
@@ -142,13 +118,13 @@ struct PhysicsWorld
 
     void unregister_movable_body(MovableBody* body)
     {
-        body->current_frame.marked_as_dead = true;
+        body->marked_as_dead = true;
     }
 
     void garbage_collect()
     {
         auto erase_from = std::remove_if(begin(movable_bodies), end(movable_bodies),
-                                         [] (auto& body) {return body->current_frame.marked_as_dead;} );
+                                         [] (auto& body) {return body->marked_as_dead;} );
 
         movable_bodies.erase(erase_from, end(movable_bodies));
     }
