@@ -102,10 +102,8 @@ constexpr bool moving_rectangle_vs_rectangle(MovableBody const& in, Box<float> c
     return false;
 }
 
-bool maybe_resolve_dynamic_vs_static_rectangle()
-{
-    
-}
+//bool maybe_resolve_dynamic_vs_static_rectangle()
+//{}
 
 static_assert(ray_intersects_rectangle_test() == true);
 
