@@ -19,11 +19,6 @@ struct MovableBody
     Vector2f speed{};
 
     int marked_as_dead{};
-
-    // At the end of every frame this should
-    // be set to denote the section at which the collision box is in (upper left)
-    int was_at_section{};
-//    State current_frame;
 };
 
 } // namespace jeagle
