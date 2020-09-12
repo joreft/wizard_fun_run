@@ -23,7 +23,6 @@ set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
                    src/play_level_draw.cpp
                    src/play_level_handle_input.cpp
                    src/play_level_update.cpp
-                   src/rectangle_collision.cpp
                    src/scene.cpp
                    src/texture_container.cpp)
 
@@ -79,6 +78,7 @@ find_package(Catch2 REQUIRED)
 find_package(Boost REQUIRED)
 
 add_subdirectory(external)
+add_subdirectory(libs)
 
 # TODO verify whether imgui requires these
 set(OpenGL_GL_PREFERENCE GLVND)
@@ -88,6 +88,7 @@ find_package(Threads REQUIRED)
 
 set(WIZARD_FUN_RUN_DEPENDENCIES imgui
                                 json11
+                                platformerutils
                                 Threads::Threads
                                 Boost::Boost
                                 spdlog::spdlog

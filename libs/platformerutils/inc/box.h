@@ -1,9 +1,11 @@
 #pragma once
 
-#include "log.h"
 #include "vector2.h"
 
+#include "fmt/format.h"
+
 #include <json11/json11.hpp>
+#include <string>
 
 namespace jeagle
 {
@@ -29,7 +31,7 @@ struct Box
         }
         else
         {
-            LOG_DEBUG("Parsing json input of non number upper left corner for box");
+            //LOG_DEBUG("Parsing json input of non number upper left corner for box");
         }
 
 
@@ -40,7 +42,7 @@ struct Box
         }
         else
         {
-            LOG_DEBUG("Parsing json input of non number size for box");
+            //LOG_DEBUG("Parsing json input of non number size for box");
         }
 
         return box;

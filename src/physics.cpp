@@ -29,10 +29,6 @@ void collision_resolution(PhysicsWorld& world, float s_elapsed)
                     , s_elapsed))
                 {
                     movable->speed = {};
-                    LOG_DEBUG("We have a collision over here");
-                    LOG_DEBUG("time: {}\nnormal: ({},{})", contact_time, contact_normal.x, contact_normal.y);
-                    LOG_DEBUG("Collided with pos: {},{} size: {},{}", world_tile.collision_box.upper_left.x, world_tile.collision_box.upper_left.y,
-                              world_tile.collision_box.size.x, world_tile.collision_box.size.y);
                 }
 //                if (time < 1)
 //                {
