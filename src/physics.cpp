@@ -19,43 +19,15 @@ void collision_resolution(PhysicsWorld& world, float s_elapsed)
             auto const& section = world.sections.at(section_idx);
             for (auto const& world_tile : section.immovable_bodies)
             {
-                Vector2f normal;
-//                auto time = swept_aabb(*movable, world_tile.collision_box, normal);
 
                 float contact_time {};
-                Vector2<float> contact {1, 2};
-                Vector2<float> contact_normal {0, 0};
+                Vector2<float> contact {};
+                Vector2<float> contact_normal {};
                 if (moving_rectangle_vs_rectangle(*movable, world_tile.collision_box, contact, contact_normal, contact_time
                     , s_elapsed))
                 {
                     movable->speed = {};
                 }
-//                if (time < 1)
-//                {
-//                    LOG_DEBUG("Oh shit fell into something: {}", time);
-//                }
-
-//                movable->current_frame.collision_box.upper_left.x += movable->current_frame.speed.x * time;
-//                movable->current_frame.collision_box.upper_left.y += movable->current_frame.speed.y * time;
-//                float remainingtime = 1.0f - time;
-
-//                if (boxes_overlap(movable->current_frame.collision_box, world_tile.collision_box ))
-//                {
-//                    // TODO remove this log line
-//                    //LOG_DEBUG("Found a collision here!");
-//                    Vector2f normal;
-//                    auto time = swept_aabb(*movable, world_tile.collision_box, normal);
-//                    if (time > 0)
-//                    {
-//                        LOG_DEBUG("Oh shit fell into something: {}", time);
-//                    }
-//
-//                    movable->current_frame.collision_box.upper_left.x += movable->current_frame.speed.x * time;
-//                    movable->current_frame.collision_box.upper_left.y += movable->current_frame.speed.y * time;
-//                    float remainingtime = 1.0f - time;
-//
-//
-//                }
             }
         }
     }
