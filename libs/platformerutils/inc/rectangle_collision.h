@@ -3,6 +3,8 @@
 #include "box.h"
 #include "body.h"
 #include <algorithm>
+#include <cstdint>
+
 /**
 * Heavily inspired by https://www.youtube.com/watch?v=8JJ-4JgR7Dg
 */
@@ -18,13 +20,13 @@ constexpr bool ray_intersects_rectangle(Vector2<T> const& ray_origin, Vector2<T>
     contact_point = {};
 
     // Cache division
-    //auto const invdir = Vector2<float> {1.f / ray_dir.x, 1.f/ray_dir.y};
+    auto const invdir = Vector2<float> {1.f / ray_dir.x, 1.f/ray_dir.y};
 
-    auto t_near = Vector2<T>{(target.upper_left.x - ray_origin.x)  / ray_dir.x,
-                             (target.upper_left.y - ray_origin.y) / ray_dir.y};
+    auto t_near = Vector2<T>{(target.upper_left.x - ray_origin.x)  * invdir.x,
+                             (target.upper_left.y - ray_origin.y) * invdir.y};
 
-    auto t_far = Vector2<T>{(target.upper_left.x + target.size.x - ray_origin.x) / ray_dir.x,
-                                  (target.upper_left.y + target.size.y - ray_origin.y) / ray_dir.y};
+    auto t_far = Vector2<T>{(target.upper_left.x + target.size.x - ray_origin.x) * invdir.x,
+                                  (target.upper_left.y + target.size.y - ray_origin.y) * invdir.y};
 
     if (std::isnan(t_far.y) || std::isnan(t_far.x)) return false;
     if (std::isnan(t_near.y) || std::isnan(t_near.x)) return false;
@@ -100,6 +102,58 @@ constexpr bool moving_rectangle_vs_rectangle(MovableBody const& in, Box<float> c
     }
 
     return false;
+}
+
+bool resolve_moving_rectangle_vs_rectangle(MovableBody& dynamic, const float fTimeStep, Box<float> const& r_static)
+{
+    Vector2f contact_point {};
+    Vector2f contact_normal {};
+    float contact_time = 0.0f;
+    if (moving_rectangle_vs_rectangle(dynamic, r_static, contact_point, contact_normal, contact_time, fTimeStep))
+    {
+//        if (contact_normal.y > 0) r_dynamic->contact[0] = r_static; else nullptr;
+//        if (contact_normal.x < 0) r_dynamic->contact[1] = r_static; else nullptr;
+//        if (contact_normal.y < 0) r_dynamic->contact[2] = r_static; else nullptr;
+//        if (contact_normal.x > 0) r_dynamic->contact[3] = r_static; else nullptr;
+//
+        dynamic.speed += Vector2f{contact_normal.x * std::abs(dynamic.speed.x), contact_normal.y * std::abs(dynamic.speed.y)} *
+                          (1 - contact_time);
+        return true;
+    }
+
+    return false;
+}
+
+void resolve_moving_rectangle_vs_world(MovableBody& dynamic, float const time_step, std::vector<Box<float>> const& world_tiles)
+{
+
+    std::vector<std::pair<int, float>> collisions;
+
+    for (std::size_t i = 0; i < world_tiles.size(); ++i)
+    {
+        Vector2f contact_normal {};
+        Vector2f contact_point {};
+        float t {};
+
+
+        if (moving_rectangle_vs_rectangle(dynamic, world_tiles[i], contact_point, contact_normal, t, time_step))
+        {
+            collisions.push_back({i, t});
+        }
+    }
+
+    // Do the sort
+    std::sort(collisions.begin(), collisions.end(), [](const std::pair<int, float>& a, const std::pair<int, float>& b)
+    {
+        return a.second < b.second;
+    });
+
+    // Now resolve the collision in correct order
+    for (auto j : collisions)
+        resolve_moving_rectangle_vs_rectangle(dynamic, time_step, world_tiles[j.first]);
+//
+    // UPdate the player rectangles position, with its modified velocity
+    //dynamic.collision_box.upper_left += vRects[0].vel * fElapsedTime;
 }
 
 //bool maybe_resolve_dynamic_vs_static_rectangle()

@@ -17,18 +17,27 @@ void collision_resolution(PhysicsWorld& world, float s_elapsed)
         for (auto const section_idx : sections_to_check)
         {
             auto const& section = world.sections.at(section_idx);
-            for (auto const& world_tile : section.immovable_bodies)
-            {
 
-                float contact_time {};
-                Vector2<float> contact {};
-                Vector2<float> contact_normal {};
-                if (moving_rectangle_vs_rectangle(*movable, world_tile.collision_box, contact, contact_normal, contact_time
-                    , s_elapsed))
-                {
-                    movable->speed = {};
-                }
+            std::vector<Box<float>> bodies;
+            for (auto const& body : section.immovable_bodies)
+            {
+                bodies.push_back(body.collision_box);
             }
+
+            resolve_moving_rectangle_vs_world(*movable, s_elapsed, bodies);
+
+//            for (auto const& world_tile : section.immovable_bodies)
+//            {
+//
+//                float contact_time {};
+//                Vector2<float> contact {};
+//                Vector2<float> contact_normal {};
+//                if (moving_rectangle_vs_rectangle(*movable, world_tile.collision_box, contact, contact_normal, contact_time
+//                    , s_elapsed))
+//                {
+//                    movable->speed = {};
+//                }
+//            }
         }
     }
 
