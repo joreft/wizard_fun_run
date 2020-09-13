@@ -124,7 +124,7 @@ bool resolve_moving_rectangle_vs_rectangle(MovableBody& dynamic, const float fTi
     return false;
 }
 
-void resolve_moving_rectangle_vs_world(MovableBody& dynamic, float const time_step, std::vector<Box<float>> const& world_tiles)
+void resolve_moving_rectangle_vs_world(MovableBody& dynamic, float const time_step, std::vector<ImmovableBody> const& world_tiles)
 {
 
     std::vector<std::pair<int, float>> collisions;
@@ -136,13 +136,12 @@ void resolve_moving_rectangle_vs_world(MovableBody& dynamic, float const time_st
         float t {};
 
 
-        if (moving_rectangle_vs_rectangle(dynamic, world_tiles[i], contact_point, contact_normal, t, time_step))
+        if (moving_rectangle_vs_rectangle(dynamic, world_tiles[i].collision_box, contact_point, contact_normal, t, time_step))
         {
             collisions.push_back({i, t});
         }
     }
 
-    // Do the sort
     std::sort(collisions.begin(), collisions.end(), [](const std::pair<int, float>& a, const std::pair<int, float>& b)
     {
         return a.second < b.second;
@@ -150,10 +149,7 @@ void resolve_moving_rectangle_vs_world(MovableBody& dynamic, float const time_st
 
     // Now resolve the collision in correct order
     for (auto j : collisions)
-        resolve_moving_rectangle_vs_rectangle(dynamic, time_step, world_tiles[j.first]);
-//
-    // UPdate the player rectangles position, with its modified velocity
-    //dynamic.collision_box.upper_left += vRects[0].vel * fElapsedTime;
+        resolve_moving_rectangle_vs_rectangle(dynamic, time_step, world_tiles[j.first].collision_box);
 }
 
 //bool maybe_resolve_dynamic_vs_static_rectangle()
