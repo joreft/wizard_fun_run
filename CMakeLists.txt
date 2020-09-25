@@ -19,6 +19,7 @@ set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
                    src/level_editor.cpp
                    src/menu.cpp
                    src/physics.cpp
+                   src/player_states.cpp
                    src/play_level_core.cpp
                    src/play_level_draw.cpp
                    src/play_level_handle_input.cpp

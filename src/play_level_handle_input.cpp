@@ -31,6 +31,10 @@ void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreCont
             key_input_state.left_pressed = true;
         }
 
+        if (event.key.code == sf::Keyboard::Space)
+        {
+            context.player.input_state.jump_requested = true;
+        }
     }
 
     if (event.type == sf::Event::KeyReleased)
@@ -53,6 +57,11 @@ void play_level_core_handle_input_impl(sf::Event const &event, PlayLevelCoreCont
         if (event.key.code == sf::Keyboard::Left)
         {
             key_input_state.left_pressed = false;
+        }
+
+        if (event.key.code == sf::Keyboard::Space)
+        {
+            context.player.input_state.jump_requested = false;
         }
     }
 }

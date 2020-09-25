@@ -31,7 +31,6 @@ struct KeyInputState
 {
     bool left_pressed {};
     bool right_pressed {};
-    bool jump_pressed {};
 };
 
 struct PlayLevelCoreContextData

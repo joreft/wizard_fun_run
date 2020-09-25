@@ -18,7 +18,9 @@ struct MovableBody
     Box<float> collision_box{};
     Vector2f speed{};
 
-    std::array<Box<float>*, 4> contact;
+    std::array<Box<float> const*, 4> contact;
+
+    bool on_ground {};
 
     int marked_as_dead{};
 };

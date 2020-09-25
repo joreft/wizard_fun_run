@@ -111,14 +111,45 @@ bool resolve_moving_rectangle_vs_rectangle(MovableBody& dynamic, const float fTi
     float contact_time = 0.0f;
     if (moving_rectangle_vs_rectangle(dynamic, r_static, contact_point, contact_normal, contact_time, fTimeStep))
     {
-//        if (contact_normal.y > 0) r_dynamic->contact[0] = r_static; else nullptr;
-//        if (contact_normal.x < 0) r_dynamic->contact[1] = r_static; else nullptr;
-//        if (contact_normal.y < 0) r_dynamic->contact[2] = r_static; else nullptr;
-//        if (contact_normal.x > 0) r_dynamic->contact[3] = r_static; else nullptr;
-//
+        if (contact_normal.y > 0) dynamic.contact[0] = &r_static; else dynamic.contact[0] = nullptr;
+        if (contact_normal.x < 0) dynamic.contact[1] = &r_static; else dynamic.contact[1] = nullptr;
+        if (contact_normal.y < 0)
+        {
+            dynamic.contact[2] = &r_static;
+            dynamic.on_ground = true;
+        }
+        else
+        {
+            dynamic.contact[2] = nullptr;
+        }
+        if (contact_normal.x > 0) dynamic.contact[3] = &r_static; else dynamic.contact[3] = nullptr;
+
         dynamic.speed += Vector2f{contact_normal.x * std::abs(dynamic.speed.x), contact_normal.y * std::abs(dynamic.speed.y)} *
                           (1 - contact_time);
         return true;
+    }
+    else
+    {
+        dynamic.contact[0] = nullptr;
+        dynamic.contact[1] = nullptr;
+        dynamic.contact[2] = nullptr;
+        dynamic.contact[3] = nullptr;
+    }
+
+    return false;
+}
+
+bool is_on_ground(MovableBody const& body)
+{
+    for (auto const contact : body.contact)
+    {
+        if (contact)
+        {
+            if (contact->upper_left.y >= (body.collision_box.upper_left.y + body.collision_box.size.y))
+            {
+                return true;
+            }
+        }
     }
 
     return false;
@@ -151,10 +182,5 @@ void resolve_moving_rectangle_vs_world(MovableBody& dynamic, float const time_st
     for (auto j : collisions)
         resolve_moving_rectangle_vs_rectangle(dynamic, time_step, world_tiles[j.first].collision_box);
 }
-
-//bool maybe_resolve_dynamic_vs_static_rectangle()
-//{}
-
-static_assert(ray_intersects_rectangle_test() == true);
 
 } // namespace jeagle

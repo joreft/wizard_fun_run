@@ -91,7 +91,8 @@ struct Player
         };
 
         bool cast_requested {};
-        MoveDirection direction;
+        bool jump_requested {};
+        MoveDirection direction {};
 
 
     } input_state;

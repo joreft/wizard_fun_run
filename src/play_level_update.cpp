@@ -56,6 +56,12 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
         transition_player_state(Player::State::casting_swing, player);
         player.input_state.cast_requested = false;
     }
+    else if (player.input_state.jump_requested && player.physics_handle->on_ground)
+    {
+        LOG_DEBUG("Jumping");
+        constexpr auto jumping_speed = -250.f;
+        speed += Vector2f{0, jumping_speed};
+    }
     else if (player.input_state.direction != Player::InputState::MoveDirection::none)
     {
         if ((speed.x < max_player_walk_speed) && (speed.x > -max_player_walk_speed))
@@ -64,10 +70,6 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
             speed += player_acceleration * s_elapsed * direction;
             transition_player_state(Player::State::walking, player);
         }
-    }
-    else
-    {
-        speed = {0.f, 0.f};
     }
 }
 
@@ -98,12 +100,19 @@ constexpr void handle_player_walking_state(Player& player, float s_elapsed)
             player.state_accumulated_time -= time_per_frame;
         }
     }
-    else if (player.input_state.cast_requested)
+
+    if (player.input_state.cast_requested)
     {
         player_speed = {0.f, 0.f};
         transition_player_state(Player::State::casting_swing, player);
     }
-    else
+    else if (player.input_state.jump_requested && player.physics_handle->on_ground)
+    {
+        LOG_DEBUG("Jumping");
+        constexpr auto jumping_speed = -250.f;
+        player_speed += Vector2f{0, jumping_speed};
+    }
+    else if (player.input_state.direction == Player::InputState::MoveDirection::none)
     {
         transition_player_state(Player::State::idle, player);
     }
@@ -178,11 +187,10 @@ void play_level_core_update_impl(PlayLevelCoreContextData& context, float s_elap
 
     process_physics(context.physics_world, s_elapsed);
 
-
-    auto const old_position = context.player.get_position_as_vec();
-    auto new_position = old_position + s_elapsed * context.player.physics_handle->speed;
-    context.player.get_position_ref().x = new_position.x;
-    context.player.get_position_ref().y = new_position.y;
+//    auto const old_position = context.player.get_position_as_vec();
+//    auto new_position = old_position + s_elapsed * context.player.physics_handle->speed;
+//    context.player.get_position_ref().x = new_position.x;
+//    context.player.get_position_ref().y = new_position.y;
 
 
 }
