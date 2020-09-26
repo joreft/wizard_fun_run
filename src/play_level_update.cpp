@@ -59,7 +59,7 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
     else if (player.input_state.jump_requested && player.physics_handle->on_ground)
     {
         LOG_DEBUG("Jumping");
-        constexpr auto jumping_speed = -250.f;
+        constexpr auto jumping_speed = -350.f;
         speed += Vector2f{0, jumping_speed};
     }
     else if (player.input_state.direction != Player::InputState::MoveDirection::none)

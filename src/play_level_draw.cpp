@@ -26,16 +26,25 @@ std::string stringify_state(Player::State state)
 }
 
 #ifndef NDEBUG
-static void draw_debug_info(sf::RenderWindow& window, sf::View view, Player const& player, int fps)
+static void draw_debug_info(sf::RenderWindow& window, sf::View view, Player const& player, int fps, PlayLevelCoreContextData const& ctx)
 {
     auto const& player_speed = player.physics_handle->speed;
+
+    auto const sections = ctx.physics_world.get_section_indices_for_body(player.physics_handle->collision_box);
+
+    auto sections_str = std::string("Sections: ");
+    for (auto const& section : sections)
+    {
+        sections_str += std::to_string(section) + ", ";
+    }
+
     std::vector<std::string> const debug_info
     {
         fmt::format("FPS: {}", fps),
         fmt::format("Position, x: {:.2f}, y: {:.2f}", player.get_position_as_vec().x, player.get_position_as_vec().y),
         fmt::format("Speed, x: {:.2f}, y: {:.2f}", player_speed.x, player_speed.y),
-        fmt::format("Player state: {}", stringify_state(player.state))
-        //fmt::format("Acceleration, x: {:.2f}, y: {:.2f}", player_newtonian->acceleration.x, player_newtonian->acceleration.y)
+        fmt::format("Player state: {}", stringify_state(player.state)),
+        sections_str
     };
 
     auto const text_size = 14;
@@ -77,10 +86,11 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
     auto sprite = texture_container_player.get_as_sprite(context.player.animation_controller.sequence, context.player.animation_controller.current_frame,
         {context.player.get_position_as_vec().x, context.player.get_position_as_vec().y});
 
+    sprite.setOrigin(10, 3);
     if (context.player.facing_left)
     {
         // TODO remove hard coded based on asset
-        sprite.setOrigin(31, 0);
+        sprite.setOrigin(31 - 10, 3);
         sprite.setScale(-1, 1);
     }
 
@@ -104,7 +114,7 @@ void play_level_core_draw_impl(sf::RenderWindow& window, PlayLevelCoreContextDat
     window.draw(sprite);
 
 #ifndef NDEBUG
-    draw_debug_info(window, view, context.player, context.fps);
+    draw_debug_info(window, view, context.player, context.fps, context);
 #endif
 
     window.display();

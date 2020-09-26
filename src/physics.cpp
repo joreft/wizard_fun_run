@@ -15,8 +15,6 @@ static void apply_gravity(MovableBody& movable, float s_elapsed)
     movable.speed += Vector2f{0, gravity}*s_elapsed;
 }
 
-
-
 void collision_resolution(PhysicsWorld& world, float s_elapsed)
 {
     for (auto& movable : world.movable_bodies)
@@ -24,6 +22,12 @@ void collision_resolution(PhysicsWorld& world, float s_elapsed)
         movable->on_ground = false;
         apply_gravity(*movable, s_elapsed);
         auto sections_to_check = world.get_section_indices_for_body(movable->collision_box);
+
+        if (sections_to_check.size() > 1)
+        {
+            LOG_ERROR("The collision resolution won't work for multiple sections");
+            exit(0);
+        }
 
         for (auto const section_idx : sections_to_check)
         {
@@ -33,11 +37,6 @@ void collision_resolution(PhysicsWorld& world, float s_elapsed)
         }
 
         movable->collision_box.upper_left += movable->speed * s_elapsed;
-
-        if (movable->on_ground)
-        {
-            LOG_DEBUG("On ground");
-        }
     }
 }
 

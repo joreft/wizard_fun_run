@@ -26,15 +26,15 @@ struct PhysicsWorld
 
     // We use 16x16 tiles, so it's probably a good idea for this to not be
     // divisible by 16
-    static constexpr auto section_size = 500; // physics_units
+    static constexpr auto section_size = 50000; // physics_units
 
     // We have some max sizes
-    static constexpr auto max_sections_x = 1000;
-    static constexpr auto max_sections_y = 1000;
+    static constexpr auto max_sections_x = 1;
+    static constexpr auto max_sections_y = 1;
 
     // One assumption here is that a collision body is always smaller than a section
     // That is reasonable, and if it creates bugs, well, everything is my fault
-    std::set<std::size_t> get_section_indices_for_body(Box<float> body)
+    std::set<std::size_t> get_section_indices_for_body(Box<float> body) const
     {
         // Using std::set because it will ignore duplicate entries, which is neat!
         std::set<std::size_t> out;

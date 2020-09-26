@@ -24,6 +24,7 @@ struct PlayLevelCore : public State
       MovableBody player_body_initialised {};
 
       player_body_initialised.collision_box =  {100, 360/2, 32, 48};
+      player_body_initialised.collision_box =  {100, 360/2, 13, 44};
 
       auto* player_body = context.physics_world.register_movable_body(player_body_initialised);
       player.physics_handle = player_body; //241
