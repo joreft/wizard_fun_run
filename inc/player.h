@@ -79,6 +79,7 @@ struct Player
           idle
         , casting_swing
         , walking
+        , jumping
         //, casting_backswing
     };
 
@@ -93,7 +94,6 @@ struct Player
         bool cast_requested {};
         bool jump_requested {};
         MoveDirection direction {};
-
 
     } input_state;
 

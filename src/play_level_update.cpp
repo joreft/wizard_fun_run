@@ -56,13 +56,8 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
         transition_player_state(Player::State::casting_swing, player);
         player.input_state.cast_requested = false;
     }
-    else if (player.input_state.jump_requested && player.physics_handle->on_ground)
-    {
-        LOG_DEBUG("Jumping");
-        constexpr auto jumping_speed = -350.f;
-        speed += Vector2f{0, jumping_speed};
-    }
-    else if (player.input_state.direction != Player::InputState::MoveDirection::none)
+
+    if (player.input_state.direction != Player::InputState::MoveDirection::none)
     {
         if ((speed.x < max_player_walk_speed) && (speed.x > -max_player_walk_speed))
         {
@@ -70,6 +65,33 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
             speed += player_acceleration * s_elapsed * direction;
             transition_player_state(Player::State::walking, player);
         }
+    }
+    else
+    {
+        constexpr auto idle_friction = 300;
+
+        bool const going_right = speed.x > 0;
+
+        auto const direction = going_right ? 1.f : -1.f;
+
+
+        if (speed.x != 0)
+        {
+            speed.x -= idle_friction * s_elapsed * direction;
+
+            if ((going_right && speed.x < 0) || (!going_right && speed.x > 0))
+            {
+                speed.x = 0;
+            }
+        }
+    }
+
+
+    if (player.input_state.jump_requested && player.physics_handle->on_ground)
+    {
+        LOG_DEBUG("Jumping");
+        constexpr auto jumping_speed = -350.f;
+        speed += Vector2f{0, jumping_speed};
     }
 }
 
