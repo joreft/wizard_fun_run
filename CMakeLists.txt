@@ -37,11 +37,7 @@ add_executable(wizard_fun_run_tests ${SOURCES_WIZARD_FUN_RUN_TESTS})
 target_include_directories(wizard_fun_run PUBLIC inc)
 target_include_directories(wizard_fun_run_tests PUBLIC inc)
 
-
-#target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
 target_compile_features(wizard_fun_run PRIVATE cxx_std_17)
-
-#target_compile_options(wizard_fun_run_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
 target_compile_features(wizard_fun_run_tests PRIVATE cxx_std_17)
 
 if(MSVC)
@@ -106,10 +102,4 @@ set(WIZARD_FUN_RUN_DEPENDENCIES imgui
                                 sfml::sfml)
 
 target_link_libraries(wizard_fun_run PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES})
-target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} Catch2)
-
-install(TARGETS wizard_fun_run
-        CONFIGURATIONS Debug
-        RUNTIME DESTINATION Debug/bin
-        RUNTIME
-        DESTINATION Debug/bin)
+target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} catch2::catch2)
