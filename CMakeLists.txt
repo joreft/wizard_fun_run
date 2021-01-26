@@ -79,7 +79,7 @@ conan_cmake_run(CONANFILE
 find_package(sfml REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
-find_package(Catch2 REQUIRED)
+find_package(catch2 REQUIRED)
 find_package(Boost REQUIRED)
 
 add_subdirectory(libs)
