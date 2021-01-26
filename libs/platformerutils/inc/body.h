@@ -3,6 +3,8 @@
 #include "vector2.h"
 #include "box.h"
 
+#include <array>
+
 namespace jeagle
 {
 

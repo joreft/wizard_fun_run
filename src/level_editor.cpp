@@ -323,12 +323,13 @@ public:
     {
         for(auto const& p: std::filesystem::directory_iterator("../assets/levels"))
         {
-            auto scene_path = p.path();
-            if (ImGui::MenuItem(scene_path.filename().c_str()))
+            auto const scene_path = p.path();
+            auto const filename = scene_path.filename().string();
+            if (ImGui::MenuItem(filename.c_str()))
             {
-                if (current_scene_loaded == std::string(scene_path)) continue; // Scene was already loaded
+                if (current_scene_loaded == scene_path.string()) continue; // Scene was already loaded
 
-                current_scene = std::make_unique<Scene>(std::string(scene_path));
+                current_scene = std::make_unique<Scene>(scene_path.string());
             }
         }
     }

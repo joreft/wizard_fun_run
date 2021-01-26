@@ -38,11 +38,19 @@ target_include_directories(wizard_fun_run PUBLIC inc)
 target_include_directories(wizard_fun_run_tests PUBLIC inc)
 
 
-target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+#target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
 target_compile_features(wizard_fun_run PRIVATE cxx_std_17)
 
-target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+#target_compile_options(wizard_fun_run_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
 target_compile_features(wizard_fun_run_tests PRIVATE cxx_std_17)
+
+if(MSVC)
+    target_compile_options(wizard_fun_run INTERFACE /W4 /WX "/permissive-")
+    target_compile_options(wizard_fun_run_tests INTERFACE /W4 /WX "/permissive-")
+else()
+    target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+    target_compile_options(wizard_fun_run_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+endif()
 
 find_program(CONAN conan)
 if (NOT CONAN)
@@ -55,7 +63,7 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
       "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
   file(
     DOWNLOAD
-      "https://raw.githubusercontent.com/conan-io/cmake-conan/v0.12/conan.cmake"
+      "https://raw.githubusercontent.com/conan-io/cmake-conan/v0.15/conan.cmake"
       "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
@@ -78,12 +86,13 @@ find_package(fmt REQUIRED)
 find_package(Catch2 REQUIRED)
 find_package(Boost REQUIRED)
 
-add_subdirectory(external)
 add_subdirectory(libs)
 
-# TODO verify whether imgui requires these
 set(OpenGL_GL_PREFERENCE GLVND)
-find_package(OpenGL)
+find_package(OpenGL REQUIRED)
+
+add_subdirectory(external)
+
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
@@ -97,4 +106,10 @@ set(WIZARD_FUN_RUN_DEPENDENCIES imgui
                                 sfml::sfml)
 
 target_link_libraries(wizard_fun_run PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES})
-target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} Catch2::Catch2)
+target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} Catch2)
+
+install(TARGETS wizard_fun_run
+        CONFIGURATIONS Debug
+        RUNTIME DESTINATION Debug/bin
+        RUNTIME
+        DESTINATION Debug/bin)

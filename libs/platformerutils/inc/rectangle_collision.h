@@ -3,6 +3,7 @@
 #include "box.h"
 #include "body.h"
 #include <algorithm>
+#include <array>
 #include <cstdint>
 
 /**
