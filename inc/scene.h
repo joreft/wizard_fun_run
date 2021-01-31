@@ -19,6 +19,9 @@ struct SceneCreationException : public std::runtime_error
     SceneCreationException(std::string const& s);
 };
 
+// TODO invert the logic of this
+// Should be
+// using Tile = std::variant<StaticCollisionTile, CosmeticTile, BehaviorTile etc.>;
 struct Tile
 {
     std::string tileset_path;
