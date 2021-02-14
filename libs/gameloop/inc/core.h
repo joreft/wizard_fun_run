@@ -1,8 +1,9 @@
 #pragma once
 
 #include <SFML/Window.hpp>
-#include <memory>
 #include <SFML/Graphics.hpp>
+
+#include <memory>
 #include <stdexcept>
 
 namespace jeagle
@@ -23,7 +24,14 @@ struct CoreError : public std::runtime_error
 class State
 {
 public:
-    virtual ~State(){};
+    State() = default;
+    State(State const&) = default;
+    State(State&&) = default;
+    State& operator=(State const&) = default;
+    State& operator=(State&&) = default;
+
+    virtual ~State() {};
+
     virtual void init() = 0;
 
     virtual void handle_input(sf::Event const& event) = 0;

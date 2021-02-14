@@ -13,7 +13,6 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
 set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
-                   src/core.cpp
                    src/fonts.cpp
                    src/json11_from_file.cpp
                    src/level_editor.cpp
@@ -95,6 +94,8 @@ find_package(Threads REQUIRED)
 set(WIZARD_FUN_RUN_DEPENDENCIES imgui
                                 json11
                                 platformerutils
+                                gameloop
+                                log
                                 Threads::Threads
                                 Boost::Boost
                                 spdlog::spdlog

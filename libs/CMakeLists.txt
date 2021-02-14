@@ -1,2 +1,3 @@
 add_subdirectory(platformerutils)
-#add_subdirectory(gameloop)
+add_subdirectory(gameloop)
+add_subdirectory(log)
