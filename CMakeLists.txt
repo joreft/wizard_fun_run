@@ -12,39 +12,20 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
-set(SOURCES_WIZARD_FUN_RUN src/asset_manager.cpp
-                   src/fonts.cpp
-                   src/json11_from_file.cpp
-                   src/level_editor.cpp
-                   src/menu.cpp
-                   src/physics.cpp
-                   src/player_states.cpp
-                   src/play_level_core.cpp
-                   src/play_level_draw.cpp
-                   src/play_level_handle_input.cpp
-                   src/play_level_update.cpp
-                   src/scene.cpp
-                   src/texture_container.cpp)
-
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
 set (SOURCES_WIZARD_FUN_RUN_TESTS  ${SOURCES_WIZARD_FUN_RUN} tests/tests_main.cpp)
 
-add_executable(wizard_fun_run src/main.cpp ${SOURCES_WIZARD_FUN_RUN})
-add_executable(wizard_fun_run_tests ${SOURCES_WIZARD_FUN_RUN_TESTS})
+add_executable(game_box src/main.cpp)
 
-target_include_directories(wizard_fun_run PUBLIC inc)
-target_include_directories(wizard_fun_run_tests PUBLIC inc)
-
-target_compile_features(wizard_fun_run PRIVATE cxx_std_17)
-target_compile_features(wizard_fun_run_tests PRIVATE cxx_std_17)
+target_compile_features(game_box PRIVATE cxx_std_17)
 
 if(MSVC)
-    target_compile_options(wizard_fun_run INTERFACE /W4 /WX "/permissive-")
-    target_compile_options(wizard_fun_run_tests INTERFACE /W4 /WX "/permissive-")
+    target_compile_options(game_box INTERFACE /W4 /WX "/permissive-")
+#    target_compile_options(wizard_fun_run_tests INTERFACE /W4 /WX "/permissive-")
 else()
-    target_compile_options(wizard_fun_run PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
-    target_compile_options(wizard_fun_run_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+    target_compile_options(game_box PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
+ #   target_compile_options(wizard_fun_run_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
 endif()
 
 find_program(CONAN conan)
@@ -91,9 +72,8 @@ add_subdirectory(external)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-set(WIZARD_FUN_RUN_DEPENDENCIES imgui
-                                json11
-                                platformerutils
+set(WIZARD_FUN_RUN_DEPENDENCIES wizard_fun_run_sfml
+                                wizard_fun_run
                                 gameloop
                                 log
                                 Threads::Threads
@@ -102,5 +82,5 @@ set(WIZARD_FUN_RUN_DEPENDENCIES imgui
                                 fmt::fmt
                                 sfml::sfml)
 
-target_link_libraries(wizard_fun_run PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES})
-target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} catch2::catch2)
+target_link_libraries(game_box PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES})
+#target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} catch2::catch2)

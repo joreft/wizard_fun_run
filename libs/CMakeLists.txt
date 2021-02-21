@@ -1,3 +1,6 @@
 add_subdirectory(platformerutils)
 add_subdirectory(gameloop)
 add_subdirectory(log)
+add_subdirectory(utils)
+add_subdirectory(wizard_fun_run)
+add_subdirectory(wizard_fun_run_sfml)
