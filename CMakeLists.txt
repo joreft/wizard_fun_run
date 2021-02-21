@@ -14,18 +14,14 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
-set (SOURCES_WIZARD_FUN_RUN_TESTS  ${SOURCES_WIZARD_FUN_RUN} tests/tests_main.cpp)
-
 add_executable(game_box src/main.cpp)
 
 target_compile_features(game_box PRIVATE cxx_std_17)
 
 if(MSVC)
     target_compile_options(game_box INTERFACE /W4 /WX "/permissive-")
-#    target_compile_options(wizard_fun_run_tests INTERFACE /W4 /WX "/permissive-")
 else()
     target_compile_options(game_box PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
- #   target_compile_options(wizard_fun_run_tests PRIVATE -Wall -Wextra -pedantic -Wnon-virtual-dtor)
 endif()
 
 find_program(CONAN conan)
@@ -72,8 +68,7 @@ add_subdirectory(external)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-set(WIZARD_FUN_RUN_DEPENDENCIES wizard_fun_run_sfml
-                                wizard_fun_run
+set(WIZARD_FUN_RUN_DEPENDENCIES wizard_fun_run
                                 gameloop
                                 log
                                 Threads::Threads
@@ -83,4 +78,3 @@ set(WIZARD_FUN_RUN_DEPENDENCIES wizard_fun_run_sfml
                                 sfml::sfml)
 
 target_link_libraries(game_box PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES})
-#target_link_libraries(wizard_fun_run_tests PRIVATE ${WIZARD_FUN_RUN_DEPENDENCIES} catch2::catch2)
