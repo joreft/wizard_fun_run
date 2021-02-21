@@ -48,4 +48,3 @@ jobs:
         conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
         cmake -DCMAKE_BUILD_TYPE=Release CMakeLists.txt
         make -j12
-        ./wizard_fun_run_tests
