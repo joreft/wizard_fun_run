@@ -2,6 +2,7 @@
 
 #include "asset_manager.h"
 #include "core.h"
+#include "fonts.h"
 #include "texture_paths.h"
 
 namespace jeagle

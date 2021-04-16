@@ -1,6 +1,6 @@
 #include "core.h"
-#include "fonts.h"
 #include "log.h"
+#include "wizard_fun_run.h"
 
 #include <SFML/Window.hpp>
 #include <spdlog/spdlog.h>
@@ -11,8 +11,6 @@ int main()
     // Global level for debug builds
     spdlog::set_level(spdlog::level::debug);
 #endif
-
-    jeagle::fonts::global_preload_all_fonts();
 
     LOG_INFO("Wizard Fun Run: Searching for the pie in the sky");
 

@@ -68,7 +68,7 @@ constexpr void handle_player_idle_state(Player& player, float s_elapsed)
     }
     else
     {
-        constexpr auto idle_friction = 300;
+        constexpr auto idle_friction = 600;
 
         bool const going_right = speed.x > 0;
 
@@ -100,7 +100,6 @@ constexpr void handle_player_walking_state(Player& player, float s_elapsed)
     player.state_accumulated_time += s_elapsed;
 
     auto& player_speed = player.physics_handle->speed;
-
 
     if (player.input_state.direction != Player::InputState::MoveDirection::none)
     {

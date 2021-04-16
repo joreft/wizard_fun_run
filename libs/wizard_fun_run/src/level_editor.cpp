@@ -119,11 +119,6 @@ public:
         scene_view.setCenter(640/2, 360/2);
     }
 
-    void set_window(sf::RenderWindow *new_window) override
-    {
-        m_window = new_window;
-    }
-
     void handle_input(sf::Event const& event) override
     {
         ImGui::SFML::ProcessEvent(event);

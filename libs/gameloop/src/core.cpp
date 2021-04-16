@@ -33,26 +33,26 @@ void set_should_pop_state()
 
 static void game_loop(sf::RenderWindow &window, float s_elapsed, sf::Event &event)
 {
+    auto& current_state = *game_states.top();
     while (window.pollEvent(event))
     {
-        game_states.top()->handle_input(event);
+        current_state.handle_input(event);
     }
 
-    game_states.top()->update(s_elapsed);
-    game_states.top()->draw();
+    current_state.update(s_elapsed);
+    current_state.draw();
 
     if (next_state != nullptr)
     {
         add_state(std::move(next_state));
         LOG_DEBUG("Setting next state window");
-        game_states.top()->set_window(&window);
+        game_states.top()->set_window(window);
         game_states.top()->init();
         next_state = nullptr;
     }
     else if (should_pop_state)
     {
         game_states.pop();
-
         if (game_states.empty())
         {
             window.close();
@@ -88,7 +88,7 @@ int run(WindowSettings const &settings)
     // The first state of the game
     // Usually a menu or some such
     add_state(std::move(next_state));
-    game_states.top()->set_window(&window);
+    game_states.top()->set_window(window);
     game_states.top()->init();
 
     sf::Clock clock;

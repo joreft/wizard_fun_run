@@ -11,5 +11,5 @@ add_library(wizard_fun_run  src/asset_manager.cpp
                             src/texture_container.cpp)
 
 target_compile_features(wizard_fun_run PRIVATE cxx_std_17)
-target_include_directories(wizard_fun_run PUBLIC inc)
+target_include_directories(wizard_fun_run PUBLIC exported_inc PRIVATE inc)
 target_link_libraries(wizard_fun_run PRIVATE sfml::sfml imgui gameloop Boost::Boost log platformerutils utils log)

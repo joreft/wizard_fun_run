@@ -38,14 +38,9 @@ public:
     virtual void update(float s_elapsed) = 0;
     virtual void draw() = 0;
 
-    virtual void set_window(sf::RenderWindow* window)
+    void set_window(sf::RenderWindow& window)
     {
-        if (!window)
-        {
-            throw CoreError("Missing render window when setting up a new state");
-        }
-
-        m_window = window;
+        m_window = &window;
     }
 
     sf::RenderWindow* m_window;
@@ -66,9 +61,5 @@ void set_should_pop_state();
 int run(WindowSettings const &settings);
 
 } // namespace core
-
-// states
-void start_main_menu();
-void start_level_editor();
 
 } // namespace jeagle

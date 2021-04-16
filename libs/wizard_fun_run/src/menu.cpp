@@ -1,8 +1,10 @@
 #include "asset_manager.h"
 #include "box.h"
 #include "core.h"
+#include "fonts.h"
 #include "log.h"
 #include "play_level_core.h"
+#include "states.h"
 
 #include <algorithm>
 #include <functional>
@@ -187,6 +189,8 @@ private:
 
 void start_main_menu()
 {
+    fonts::global_preload_all_fonts();
+
     std::vector<MenuEntry> main_menu_entries
     {
           MenuEntry {"Play [p]", sf::Keyboard::Key::P, start_play_level_core}

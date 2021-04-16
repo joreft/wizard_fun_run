@@ -25,7 +25,7 @@ struct PlayerAsset
             if (boost::algorithm::starts_with(filename, "casting_"))
             {
                 LOG_DEBUG("Found {}", filename);
-                Box<int> box;
+                Box<int> box {};
                 auto const& frame = val["frame"];
                 box.upper_left = {frame["x"].int_value(), frame["y"].int_value() };
                 box.size = {frame["w"].int_value(), frame["h"].int_value()};
@@ -34,7 +34,7 @@ struct PlayerAsset
             else if (boost::algorithm::starts_with(filename, "walking_"))
             {
                 LOG_DEBUG("Found {}", filename);
-                Box<int> box;
+                Box<int> box {};
                 auto const& frame = val["frame"];
                 box.upper_left = {frame["x"].int_value(), frame["y"].int_value() };
                 box.size = {frame["w"].int_value(), frame["h"].int_value()};
@@ -125,7 +125,6 @@ struct Player
         std::size_t current_frame;
         std::string texture_key;
         CreatureSequence sequence;
-
     } animation_controller;
 };
 
